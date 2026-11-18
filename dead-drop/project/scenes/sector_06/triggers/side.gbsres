@@ -1,0 +1,31 @@
+{
+  "_resourceType": "trigger",
+  "id": "6aa9432f-fbab-5650-b7e4-d4237d6e46fa",
+  "_index": 2,
+  "name": "side",
+  "symbol": "trigger_s6_side",
+  "x": 35,
+  "y": 27,
+  "width": 2,
+  "height": 4,
+  "script": [
+    {
+      "id": "d6906d52-77d6-527b-88a8-dcce55a590a9",
+      "command": "EVENT_SWITCH_SCENE",
+      "args": {
+        "sceneId": "eb7f8a09-a0ba-54d6-a6a8-d6d10cfeb384",
+        "x": {
+          "type": "number",
+          "value": 6
+        },
+        "y": {
+          "type": "number",
+          "value": 29
+        },
+        "direction": "up",
+        "fadeSpeed": "2"
+      }
+    }
+  ],
+  "leaveScript": []
+}

@@ -1,0 +1,45 @@
+{
+  "_resourceType": "actor",
+  "id": "64228bb2-e6c3-557c-a3d3-76bba9fde046",
+  "_index": 8,
+  "name": "Mission terminal",
+  "symbol": "actor_s8_9",
+  "x": 29,
+  "y": 6,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "09a1f417-09ef-58d2-93bf-6e3797e697cf",
+  "paletteId": "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": true,
+  "collisionGroup": "",
+  "collisionEnabled": false,
+  "script": [
+    {
+      "id": "be8d81af-1d6d-581a-8255-6bca72463f77",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 4,
+        "value": 0
+      }
+    },
+    {
+      "id": "fa9bb1d2-1462-594d-8312-3f3f1892824e",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": [
+          "Coolant controls\nlie north. Look for\nthe terminal above",
+          "the second\nbulkhead."
+        ]
+      }
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

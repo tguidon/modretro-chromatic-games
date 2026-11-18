@@ -1,0 +1,86 @@
+{
+  "_resourceType": "trigger",
+  "id": "520f496e-7f22-5697-9879-69b893e6b587",
+  "_index": 0,
+  "name": "north",
+  "symbol": "trigger_s6_north",
+  "x": 29,
+  "y": 2,
+  "width": 6,
+  "height": 2,
+  "script": [
+    {
+      "id": "2ceb3cc1-ed04-5cb8-8793-de360401d9b4",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "1"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "5c55d86c-a822-5231-8755-d04e5027e5f9",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "b4c165ce-da46-555d-8ad6-c61f771cc326",
+              "x": {
+                "type": "number",
+                "value": 6
+              },
+              "y": {
+                "type": "number",
+                "value": 29
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "cb3cd7f1-a604-5c62-a6f8-4d8d8bbd3425",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 4,
+              "value": 0
+            }
+          },
+          {
+            "id": "fbf06737-69ac-5e9a-bd80-8273ef3c49e6",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Copy the access\ncard at the north\nterminal."
+              ]
+            }
+          },
+          {
+            "id": "faa3e482-634b-5600-b74a-f1384e9eddb6",
+            "command": "EVENT_ACTOR_SET_POSITION",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 31
+              },
+              "y": {
+                "type": "number",
+                "value": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

@@ -1,0 +1,88 @@
+{
+  "_resourceType": "actor",
+  "id": "e967a759-a4b4-5d5d-9375-b1b9e62433b3",
+  "_index": 8,
+  "name": "Mission terminal",
+  "symbol": "actor_s14_9",
+  "x": 29,
+  "y": 6,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "09a1f417-09ef-58d2-93bf-6e3797e697cf",
+  "paletteId": "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": true,
+  "collisionGroup": "",
+  "collisionEnabled": false,
+  "script": [
+    {
+      "id": "de666a61-65c2-5d61-95dd-3e8646db5a16",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 4,
+        "value": 0
+      }
+    },
+    {
+      "id": "4e19bd9b-3870-56f0-9066-8ca39a3fad8a",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "7"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "8d443560-4d25-5d95-ae19-d3eb100112ec",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Intel already\ncopied."
+              ]
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "0e9c360d-9889-5ce8-ac25-7a1da3088f76",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "7",
+              "value": {
+                "type": "number",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "e4aec068-3ebf-5d32-aeaa-9cf33273cd03",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "INTEL / GHOST\nLEDGER. A private\nfleet moved the",
+                "hardware. A name:\nORCHID."
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

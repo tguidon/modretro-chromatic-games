@@ -1,0 +1,88 @@
+{
+  "_resourceType": "actor",
+  "id": "2834b4f3-87d7-5e19-9549-cbdc60f8e53a",
+  "_index": 8,
+  "name": "Mission terminal",
+  "symbol": "actor_s18_9",
+  "x": 29,
+  "y": 6,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "09a1f417-09ef-58d2-93bf-6e3797e697cf",
+  "paletteId": "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": true,
+  "collisionGroup": "",
+  "collisionEnabled": false,
+  "script": [
+    {
+      "id": "7e8599d0-c0d3-55a5-b7be-6617d78a8ff0",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 4,
+        "value": 0
+      }
+    },
+    {
+      "id": "1e41974e-31df-5144-afd4-c5c3756ca120",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "10"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "f9b6c783-7925-547d-af73-a5ae281a7819",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Cipher copied.\nCargo is open."
+              ]
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "08701494-7e49-54bb-b6f7-3d41abe82cef",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "10",
+              "value": {
+                "type": "number",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "72d33221-28a0-50d6-85ba-e08c6d9d27eb",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "CIPHER CRACKED.\nMissile cargo\nunlocked. One",
+                "charge remains."
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

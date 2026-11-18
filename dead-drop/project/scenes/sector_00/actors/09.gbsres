@@ -1,0 +1,96 @@
+{
+  "_resourceType": "actor",
+  "id": "06243afe-581f-5967-81cc-fc6a86bacd74",
+  "_index": 8,
+  "name": "Mission terminal",
+  "symbol": "actor_s0_9",
+  "x": 9,
+  "y": 29,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "09a1f417-09ef-58d2-93bf-6e3797e697cf",
+  "paletteId": "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": true,
+  "collisionGroup": "",
+  "collisionEnabled": false,
+  "script": [
+    {
+      "id": "b1e7b3fd-300c-5740-9b8c-c6ec76907763",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 4,
+        "value": 0
+      }
+    },
+    {
+      "id": "dcf33bb9-66f0-5f8f-84f9-9f11f14e152f",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "200"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "d28d2ee8-5ba5-53a8-8a5c-a89c51b3adc0",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Supply cache empty.\nKeep moving."
+              ]
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "153a69f2-dde1-53c9-b789-abd11c8a328f",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "200",
+              "value": {
+                "type": "number",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "cd49ce1b-f0d2-5a86-9e44-8eeb06bc76c7",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 2,
+              "value": 6
+            }
+          },
+          {
+            "id": "a02dde99-3e39-59f3-b9be-0fa0b6dfc172",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "FIELD CACHE. Health\nrestored. 6\nsuppressed rounds",
+                "recovered."
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

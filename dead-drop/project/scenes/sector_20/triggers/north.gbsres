@@ -1,0 +1,86 @@
+{
+  "_resourceType": "trigger",
+  "id": "7beac67c-2abb-5d30-b489-c6b0533090c9",
+  "_index": 0,
+  "name": "north",
+  "symbol": "trigger_s20_north",
+  "x": 29,
+  "y": 2,
+  "width": 6,
+  "height": 2,
+  "script": [
+    {
+      "id": "6239bfc1-6a2a-5798-b65b-1a7495cead16",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "6"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "56286dca-d1d6-522b-a5f5-17beb844905c",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "a4c2e1d2-0ef7-5b57-bb97-595d94c639cd",
+              "x": {
+                "type": "number",
+                "value": 6
+              },
+              "y": {
+                "type": "number",
+                "value": 29
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "33cb76bc-22ad-53dd-a236-4fcadf88761e",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 4,
+              "value": 0
+            }
+          },
+          {
+            "id": "076141b7-a862-588d-8a8a-e9fdc4a419c1",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Erase the targeting\nuplink first."
+              ]
+            }
+          },
+          {
+            "id": "3bc7947f-d523-5c5c-a199-ef4eed97467b",
+            "command": "EVENT_ACTOR_SET_POSITION",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 31
+              },
+              "y": {
+                "type": "number",
+                "value": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}
