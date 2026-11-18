@@ -1,0 +1,111 @@
+{
+  "_resourceType": "scene",
+  "id": "88d6b61b-aa35-59ee-870d-ee604425dde5",
+  "_index": 11,
+  "type": "STEALTH",
+  "name": "11 Engine Room",
+  "symbol": "scene_sector_10",
+  "x": 1440,
+  "y": 550,
+  "width": 40,
+  "height": 36,
+  "backgroundId": "a9616a5f-1244-5f2e-93d0-12b6894efa07",
+  "tilesetId": "",
+  "colorModeOverride": "none",
+  "paletteIds": [
+    "ea6dda93-b8f3-556c-9749-876965414b99",
+    "f28ed356-a2f8-52eb-a3a9-612f8fffc360",
+    "afde77f0-8720-5a62-b85b-cdbda2ad12ef",
+    "d79001c2-39b3-585a-a3be-0b54523c9534",
+    "3ccbb039-ab05-57ba-b5d9-14587c218c63",
+    "5b19eb61-a1fe-5e55-bd13-313ac555e1d1",
+    "8bf87903-726a-5cc2-a82d-344992a44123",
+    "default-ui"
+  ],
+  "spritePaletteIds": [
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "51a17850-44e7-5919-b87a-259ce0f66060",
+    "fc540a0d-7f29-5a92-81bb-0acb6c8ad893",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a"
+  ],
+  "autoFadeSpeed": 1,
+  "script": [
+    {
+      "id": "a59acb60-4a09-5de8-b2db-12468f572019",
+      "command": "EVENT_REMOVE_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "start"
+        ]
+      }
+    },
+    {
+      "id": "39e1ce06-f6c3-5564-9503-5e5e12c4c0a8",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 1,
+        "value": 10
+      }
+    },
+    {
+      "id": "49878e77-29fc-5f72-bb64-5552fb3d98d2",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "110"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [],
+        "false": [
+          {
+            "id": "2c59daba-141f-5ff4-813c-56c69345a383",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "110",
+              "value": {
+                "type": "number",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "60443e5c-f644-51bd-b885-7f42a991d318",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 4,
+              "value": 0
+            }
+          },
+          {
+            "id": "182fe366-c74a-57c7-a97a-2c59fd3aa2fa",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "ENGINE ROOM.\nRemember this\nregulator. Return",
+                "after copying the\nBRIDGE manifest.\nKeep going north."
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerHit1Script": [],
+  "playerHit2Script": [],
+  "playerHit3Script": [],
+  "collisions": "0f53+0022+0f6+10c+0016+0f6+10c+009+0f3+00a+0f6+10c+001+0f4+004+0f3+00a+0f6+10c+001+0f4+0011+0f6+10c+001+0f4+004+104+009+0f6+10c+001+104+0011+0f6+0022+0f22+006+0f22+006+0f6+0017+10b+0f6+0017+10b+0f6+00b+0fe+109+0f6+009+0f10+109+0f6+009+0f10+109+0f6+00b+0fe+109+0f6+009+102+0fe+109+0f6+0011+104+002+10b+0f6+0022+0f6+007+0f21+007+0f21+0022+0f6+10c+0016+0f6+10c+0016+0f6+10c+002+0f6+00e+0f6+10c+002+0f6+00e+0f6+10c+002+0f6+002+0f4+008+0f6+10c+002+0f6+002+0f4+008+0f6+10c+002+104+004+0f4+008+0f6+103+001+108+00a+104+008+0f6+0022+0f6+0022+0f53+",
+  "playerSpriteSheetId": "f76f87cf-037c-56eb-b02b-7c5be1ad46b5"
+}

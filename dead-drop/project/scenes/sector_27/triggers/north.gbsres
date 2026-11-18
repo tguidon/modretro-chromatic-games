@@ -1,0 +1,87 @@
+{
+  "_resourceType": "trigger",
+  "id": "7be6daf8-dc52-553b-8386-df0d0dfaccbc",
+  "_index": 0,
+  "name": "north",
+  "symbol": "trigger_s27_north",
+  "x": 29,
+  "y": 2,
+  "width": 6,
+  "height": 2,
+  "script": [
+    {
+      "id": "622d6cc8-d46b-58b3-86b4-6e9014ca239a",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "1"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "f80c10e5-5d75-5593-bed1-ee8a1f734ce9",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "d581a791-a795-5a5a-980a-bfefe056e066",
+              "x": {
+                "type": "number",
+                "value": 6
+              },
+              "y": {
+                "type": "number",
+                "value": 29
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "81a0b7b6-42e1-5fe2-9159-6e8f9b444379",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 4,
+              "value": 0
+            }
+          },
+          {
+            "id": "361fcffd-05b7-5038-8f46-54326c657113",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Service grille\nlocked. Get the\nSECURITY card",
+                "first. Return\nthrough the south\nhatch."
+              ]
+            }
+          },
+          {
+            "id": "a927bf15-74f7-5a9c-93e6-b2f46ab2a065",
+            "command": "EVENT_ACTOR_SET_POSITION",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 31
+              },
+              "y": {
+                "type": "number",
+                "value": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

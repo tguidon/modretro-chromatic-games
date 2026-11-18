@@ -1,0 +1,31 @@
+{
+  "_resourceType": "trigger",
+  "id": "89971ab7-47c4-5eab-88f8-b8da6933e77d",
+  "_index": 1,
+  "name": "south",
+  "symbol": "trigger_s1_south",
+  "x": 4,
+  "y": 32,
+  "width": 6,
+  "height": 2,
+  "script": [
+    {
+      "id": "097e6372-57ef-5808-8bac-2fb1079b023c",
+      "command": "EVENT_SWITCH_SCENE",
+      "args": {
+        "sceneId": "0f926697-db5c-55a6-ac1f-d0691e496bdd",
+        "x": {
+          "type": "number",
+          "value": 31
+        },
+        "y": {
+          "type": "number",
+          "value": 5
+        },
+        "direction": "down",
+        "fadeSpeed": "2"
+      }
+    }
+  ],
+  "leaveScript": []
+}

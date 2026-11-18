@@ -1,0 +1,45 @@
+{
+  "_resourceType": "actor",
+  "id": "7792a3e7-2b34-519a-bfc2-233526ec8d25",
+  "_index": 8,
+  "name": "Mission terminal",
+  "symbol": "actor_s4_9",
+  "x": 29,
+  "y": 6,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "09a1f417-09ef-58d2-93bf-6e3797e697cf",
+  "paletteId": "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": true,
+  "collisionGroup": "",
+  "collisionEnabled": false,
+  "script": [
+    {
+      "id": "0b1b5be5-391f-5c52-a8b9-ec0cc62c9c28",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 4,
+        "value": 0
+      }
+    },
+    {
+      "id": "6353baa2-4c3e-5f31-954d-a86c5ff63c85",
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": [
+          "The dark floor bays\nhide your\nsilhouette.",
+          "Crouching helps in\nlight too."
+        ]
+      }
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

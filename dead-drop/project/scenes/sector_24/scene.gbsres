@@ -1,0 +1,60 @@
+{
+  "_resourceType": "scene",
+  "id": "a126cd3a-ea8c-56b3-b9fa-d0a9f615d5b1",
+  "_index": 25,
+  "type": "STEALTH",
+  "name": "25 Infirmary",
+  "symbol": "scene_sector_24",
+  "x": 0,
+  "y": 1540,
+  "width": 40,
+  "height": 36,
+  "backgroundId": "7a21f32d-3c6f-52d7-a133-5c9d7555b36d",
+  "tilesetId": "",
+  "colorModeOverride": "none",
+  "paletteIds": [
+    "ea6dda93-b8f3-556c-9749-876965414b99",
+    "f28ed356-a2f8-52eb-a3a9-612f8fffc360",
+    "afde77f0-8720-5a62-b85b-cdbda2ad12ef",
+    "d79001c2-39b3-585a-a3be-0b54523c9534",
+    "3ccbb039-ab05-57ba-b5d9-14587c218c63",
+    "5b19eb61-a1fe-5e55-bd13-313ac555e1d1",
+    "8bf87903-726a-5cc2-a82d-344992a44123",
+    "default-ui"
+  ],
+  "spritePaletteIds": [
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "51a17850-44e7-5919-b87a-259ce0f66060",
+    "fc540a0d-7f29-5a92-81bb-0acb6c8ad893",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a"
+  ],
+  "autoFadeSpeed": 1,
+  "script": [
+    {
+      "id": "3d73b300-5220-54c5-8c47-4c9056a68ab5",
+      "command": "EVENT_REMOVE_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "start"
+        ]
+      }
+    },
+    {
+      "id": "cb73b684-6079-513c-9756-395d4fba6e93",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 1,
+        "value": 24
+      }
+    }
+  ],
+  "playerHit1Script": [],
+  "playerHit2Script": [],
+  "playerHit3Script": [],
+  "collisions": "0f53+0022+0f6+10c+0016+0f6+10c+009+0f3+00a+0f6+10c+001+0f4+004+0f3+00a+0f6+10c+001+0f4+0011+0f6+10c+001+0f4+004+104+009+0f6+10c+001+104+0011+0f6+0022+0f22+006+0f22+006+0f6+0017+10b+0f6+0017+10b+0f6+00b+0fe+109+0f6+009+0f10+109+0f6+009+0f10+109+0f6+009+0f10+109+0f6+009+102+0fe+109+0f6+0011+104+002+10b+0f6+0022+0f6+007+0f21+007+0f21+0022+0f6+10c+0016+0f6+10c+0016+0f6+10c+0016+0f6+10c+002+0f3+0011+0f6+10c+002+0f3+005+0f4+008+0f6+10c+00a+0f4+008+0f6+10c+002+104+004+0f4+008+0f6+103+001+108+00a+104+008+0f6+0022+0f6+0022+0f53+",
+  "playerSpriteSheetId": "f76f87cf-037c-56eb-b02b-7c5be1ad46b5"
+}

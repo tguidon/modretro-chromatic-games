@@ -1,0 +1,224 @@
+{
+  "_resourceType": "actor",
+  "id": "529f22e0-66ba-53aa-8b5f-49ce0a1016dd",
+  "_index": 8,
+  "name": "Mission terminal",
+  "symbol": "actor_s20_9",
+  "x": 29,
+  "y": 6,
+  "frame": 0,
+  "animate": true,
+  "spriteSheetId": "09a1f417-09ef-58d2-93bf-6e3797e697cf",
+  "paletteId": "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "isPinned": false,
+  "persistent": true,
+  "collisionGroup": "",
+  "collisionEnabled": false,
+  "script": [
+    {
+      "id": "9130ed76-639f-5d07-99c0-2abb0cf51ec0",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 4,
+        "value": 0
+      }
+    },
+    {
+      "id": "4412f9c4-a220-5d03-bcb7-6adb87db3a95",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "6"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "62b6b54f-551f-54ea-bb7e-ef83ca405037",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Uplink erased. Get\nto the boat."
+              ]
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "16bed54e-089c-5031-8997-6b6e579031a9",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "eq",
+                "valueA": {
+                  "type": "variable",
+                  "value": "0"
+                },
+                "valueB": {
+                  "type": "number",
+                  "value": 1
+                }
+              }
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "e9590529-64a8-5839-b1a6-ec3b98036d06",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "3"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 1
+                      }
+                    }
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "8a6aa076-b475-5f44-a89d-6cc8035e99a4",
+                        "command": "EVENT_IF",
+                        "args": {
+                          "condition": {
+                            "type": "eq",
+                            "valueA": {
+                              "type": "variable",
+                              "value": "4"
+                            },
+                            "valueB": {
+                              "type": "number",
+                              "value": 1
+                            }
+                          }
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "id": "e085b63f-c1a0-5fc8-b331-d641b437d432",
+                              "command": "EVENT_IF",
+                              "args": {
+                                "condition": {
+                                  "type": "eq",
+                                  "valueA": {
+                                    "type": "variable",
+                                    "value": "5"
+                                  },
+                                  "valueB": {
+                                    "type": "number",
+                                    "value": 1
+                                  }
+                                }
+                              },
+                              "children": {
+                                "true": [
+                                  {
+                                    "id": "c2212094-c73c-556d-ab0e-a037e151a01f",
+                                    "command": "EVENT_DEAD_DROP",
+                                    "args": {
+                                      "op": 6,
+                                      "value": 5
+                                    }
+                                  },
+                                  {
+                                    "id": "5f45e02a-0bc4-51ed-8ac7-59cd98305594",
+                                    "command": "EVENT_SET_VALUE",
+                                    "args": {
+                                      "variable": "6",
+                                      "value": {
+                                        "type": "number",
+                                        "value": 1
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "fc738894-0a9c-548f-8638-595400723a3f",
+                                    "command": "EVENT_TEXT",
+                                    "args": {
+                                      "text": [
+                                        "UPLINK ERASED.\nCharges will fire\nafter extraction.",
+                                        "Reach the bow\nlifeboat."
+                                      ]
+                                    }
+                                  }
+                                ],
+                                "false": [
+                                  {
+                                    "id": "efcd58c8-a08a-54e0-807d-08f6cd102e78",
+                                    "command": "EVENT_TEXT",
+                                    "args": {
+                                      "text": [
+                                        "Guidance charge\nmissing. Return to\nmissile cargo."
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ],
+                          "false": [
+                            {
+                              "id": "edcabbd4-824d-5033-85c4-b3d8739be87c",
+                              "command": "EVENT_TEXT",
+                              "args": {
+                                "text": [
+                                  "Regulator charge\nmissing. Return to\nengine room."
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "false": [
+                      {
+                        "id": "024065a6-c465-5aa2-b8fc-7afb7c80d828",
+                        "command": "EVENT_TEXT",
+                        "args": {
+                          "text": [
+                            "Coolant charge\nmissing. Return to\npump control."
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "611abb24-47ae-5b04-9fe4-0e56ecb9914a",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": [
+                      "Manifest missing.\nReturn to the\nbridge."
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

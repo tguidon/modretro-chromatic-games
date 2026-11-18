@@ -1,0 +1,341 @@
+{
+  "_resourceType": "variables",
+  "variables": [
+    {
+      "id": "0",
+      "name": "Manifest",
+      "symbol": "var_manifest"
+    },
+    {
+      "id": "1",
+      "name": "Access card",
+      "symbol": "var_access_card"
+    },
+    {
+      "id": "2",
+      "name": "Blackout",
+      "symbol": "var_blackout"
+    },
+    {
+      "id": "3",
+      "name": "Coolant charge",
+      "symbol": "var_coolant_charge"
+    },
+    {
+      "id": "4",
+      "name": "Regulator charge",
+      "symbol": "var_regulator_charge"
+    },
+    {
+      "id": "5",
+      "name": "Guidance charge",
+      "symbol": "var_guidance_charge"
+    },
+    {
+      "id": "6",
+      "name": "Uplink erased",
+      "symbol": "var_uplink_erased"
+    },
+    {
+      "id": "7",
+      "name": "Archive intel",
+      "symbol": "var_archive_intel"
+    },
+    {
+      "id": "8",
+      "name": "Radio intel",
+      "symbol": "var_radio_intel"
+    },
+    {
+      "id": "9",
+      "name": "Chart intel",
+      "symbol": "var_chart_intel"
+    },
+    {
+      "id": "10",
+      "name": "Cipher",
+      "symbol": "var_cipher"
+    },
+    {
+      "id": "100",
+      "name": "Visited sector 1",
+      "symbol": "var_visit_0"
+    },
+    {
+      "id": "101",
+      "name": "Visited sector 2",
+      "symbol": "var_visit_1"
+    },
+    {
+      "id": "102",
+      "name": "Visited sector 3",
+      "symbol": "var_visit_2"
+    },
+    {
+      "id": "103",
+      "name": "Visited sector 4",
+      "symbol": "var_visit_3"
+    },
+    {
+      "id": "104",
+      "name": "Visited sector 5",
+      "symbol": "var_visit_4"
+    },
+    {
+      "id": "105",
+      "name": "Visited sector 6",
+      "symbol": "var_visit_5"
+    },
+    {
+      "id": "106",
+      "name": "Visited sector 7",
+      "symbol": "var_visit_6"
+    },
+    {
+      "id": "107",
+      "name": "Visited sector 8",
+      "symbol": "var_visit_7"
+    },
+    {
+      "id": "108",
+      "name": "Visited sector 9",
+      "symbol": "var_visit_8"
+    },
+    {
+      "id": "109",
+      "name": "Visited sector 10",
+      "symbol": "var_visit_9"
+    },
+    {
+      "id": "110",
+      "name": "Visited sector 11",
+      "symbol": "var_visit_10"
+    },
+    {
+      "id": "111",
+      "name": "Visited sector 12",
+      "symbol": "var_visit_11"
+    },
+    {
+      "id": "112",
+      "name": "Visited sector 13",
+      "symbol": "var_visit_12"
+    },
+    {
+      "id": "113",
+      "name": "Visited sector 14",
+      "symbol": "var_visit_13"
+    },
+    {
+      "id": "114",
+      "name": "Visited sector 15",
+      "symbol": "var_visit_14"
+    },
+    {
+      "id": "115",
+      "name": "Visited sector 16",
+      "symbol": "var_visit_15"
+    },
+    {
+      "id": "116",
+      "name": "Visited sector 17",
+      "symbol": "var_visit_16"
+    },
+    {
+      "id": "117",
+      "name": "Visited sector 18",
+      "symbol": "var_visit_17"
+    },
+    {
+      "id": "118",
+      "name": "Visited sector 19",
+      "symbol": "var_visit_18"
+    },
+    {
+      "id": "119",
+      "name": "Visited sector 20",
+      "symbol": "var_visit_19"
+    },
+    {
+      "id": "120",
+      "name": "Visited sector 21",
+      "symbol": "var_visit_20"
+    },
+    {
+      "id": "121",
+      "name": "Visited sector 22",
+      "symbol": "var_visit_21"
+    },
+    {
+      "id": "122",
+      "name": "Visited sector 23",
+      "symbol": "var_visit_22"
+    },
+    {
+      "id": "123",
+      "name": "Visited sector 24",
+      "symbol": "var_visit_23"
+    },
+    {
+      "id": "124",
+      "name": "Visited sector 25",
+      "symbol": "var_visit_24"
+    },
+    {
+      "id": "125",
+      "name": "Visited sector 26",
+      "symbol": "var_visit_25"
+    },
+    {
+      "id": "126",
+      "name": "Visited sector 27",
+      "symbol": "var_visit_26"
+    },
+    {
+      "id": "127",
+      "name": "Visited sector 28",
+      "symbol": "var_visit_27"
+    },
+    {
+      "id": "200",
+      "name": "Supply sector 1",
+      "symbol": "var_supply_0"
+    },
+    {
+      "id": "201",
+      "name": "Supply sector 2",
+      "symbol": "var_supply_1"
+    },
+    {
+      "id": "202",
+      "name": "Supply sector 3",
+      "symbol": "var_supply_2"
+    },
+    {
+      "id": "203",
+      "name": "Supply sector 4",
+      "symbol": "var_supply_3"
+    },
+    {
+      "id": "204",
+      "name": "Supply sector 5",
+      "symbol": "var_supply_4"
+    },
+    {
+      "id": "205",
+      "name": "Supply sector 6",
+      "symbol": "var_supply_5"
+    },
+    {
+      "id": "206",
+      "name": "Supply sector 7",
+      "symbol": "var_supply_6"
+    },
+    {
+      "id": "207",
+      "name": "Supply sector 8",
+      "symbol": "var_supply_7"
+    },
+    {
+      "id": "208",
+      "name": "Supply sector 9",
+      "symbol": "var_supply_8"
+    },
+    {
+      "id": "209",
+      "name": "Supply sector 10",
+      "symbol": "var_supply_9"
+    },
+    {
+      "id": "210",
+      "name": "Supply sector 11",
+      "symbol": "var_supply_10"
+    },
+    {
+      "id": "211",
+      "name": "Supply sector 12",
+      "symbol": "var_supply_11"
+    },
+    {
+      "id": "212",
+      "name": "Supply sector 13",
+      "symbol": "var_supply_12"
+    },
+    {
+      "id": "213",
+      "name": "Supply sector 14",
+      "symbol": "var_supply_13"
+    },
+    {
+      "id": "214",
+      "name": "Supply sector 15",
+      "symbol": "var_supply_14"
+    },
+    {
+      "id": "215",
+      "name": "Supply sector 16",
+      "symbol": "var_supply_15"
+    },
+    {
+      "id": "216",
+      "name": "Supply sector 17",
+      "symbol": "var_supply_16"
+    },
+    {
+      "id": "217",
+      "name": "Supply sector 18",
+      "symbol": "var_supply_17"
+    },
+    {
+      "id": "218",
+      "name": "Supply sector 19",
+      "symbol": "var_supply_18"
+    },
+    {
+      "id": "219",
+      "name": "Supply sector 20",
+      "symbol": "var_supply_19"
+    },
+    {
+      "id": "220",
+      "name": "Supply sector 21",
+      "symbol": "var_supply_20"
+    },
+    {
+      "id": "221",
+      "name": "Supply sector 22",
+      "symbol": "var_supply_21"
+    },
+    {
+      "id": "222",
+      "name": "Supply sector 23",
+      "symbol": "var_supply_22"
+    },
+    {
+      "id": "223",
+      "name": "Supply sector 24",
+      "symbol": "var_supply_23"
+    },
+    {
+      "id": "224",
+      "name": "Supply sector 25",
+      "symbol": "var_supply_24"
+    },
+    {
+      "id": "225",
+      "name": "Supply sector 26",
+      "symbol": "var_supply_25"
+    },
+    {
+      "id": "226",
+      "name": "Supply sector 27",
+      "symbol": "var_supply_26"
+    },
+    {
+      "id": "227",
+      "name": "Supply sector 28",
+      "symbol": "var_supply_27"
+    }
+  ],
+  "constants": []
+}

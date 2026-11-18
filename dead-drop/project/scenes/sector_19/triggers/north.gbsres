@@ -1,0 +1,86 @@
+{
+  "_resourceType": "trigger",
+  "id": "86c7ed1b-8626-51aa-a2d8-8454298334d6",
+  "_index": 0,
+  "name": "north",
+  "symbol": "trigger_s19_north",
+  "x": 29,
+  "y": 2,
+  "width": 6,
+  "height": 2,
+  "script": [
+    {
+      "id": "a87bf50a-ba53-540c-ab70-01d8c7e10f2c",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "5"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "7042b639-d93e-5b11-8152-e8bf6296ddcb",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "9028e090-b486-55fa-b30a-f0b884f2776c",
+              "x": {
+                "type": "number",
+                "value": 6
+              },
+              "y": {
+                "type": "number",
+                "value": 29
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "5ffbc22e-83bc-5f1a-843f-a110e654d29c",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 4,
+              "value": 0
+            }
+          },
+          {
+            "id": "1e29fcea-0bf6-5c1e-b1d6-5fdbeec6a683",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Plant the final\ncharge before\nleaving."
+              ]
+            }
+          },
+          {
+            "id": "c10f893d-9f08-5c0e-96dd-c781c824b4f6",
+            "command": "EVENT_ACTOR_SET_POSITION",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 31
+              },
+              "y": {
+                "type": "number",
+                "value": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

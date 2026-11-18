@@ -1,0 +1,86 @@
+{
+  "_resourceType": "trigger",
+  "id": "18d21635-81b9-50aa-8da3-193fc8a4b572",
+  "_index": 0,
+  "name": "north",
+  "symbol": "trigger_s11_north",
+  "x": 29,
+  "y": 2,
+  "width": 6,
+  "height": 2,
+  "script": [
+    {
+      "id": "d3d892cf-9389-5878-9917-3e2d1468b834",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "2"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "e4aa7d4c-dba8-5a71-8353-f804b604897d",
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "5a076a73-14af-5c97-9f54-fbc502c49de0",
+              "x": {
+                "type": "number",
+                "value": 6
+              },
+              "y": {
+                "type": "number",
+                "value": 29
+              },
+              "direction": "up",
+              "fadeSpeed": "2"
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "3b0dc143-e062-58f2-82f5-1d86b8174c6e",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 4,
+              "value": 0
+            }
+          },
+          {
+            "id": "a6a04af8-ac2d-5fac-b957-f397adacf297",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Shut off the cargo\nlights at the\nterminal."
+              ]
+            }
+          },
+          {
+            "id": "397a3900-c59a-5959-902b-86881a4cc54a",
+            "command": "EVENT_ACTOR_SET_POSITION",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 31
+              },
+              "y": {
+                "type": "number",
+                "value": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}

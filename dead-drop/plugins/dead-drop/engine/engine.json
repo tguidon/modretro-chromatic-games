@@ -1,0 +1,95 @@
+{
+  "version": "4.3.0-e1",
+  "fields": [
+    {
+      "key": "DD_POSE_SHOOT",
+      "sceneType": "STEALTH",
+      "label": "Pistol recoil",
+      "group": "Dead Drop combat",
+      "type": "animationstate",
+      "cType": "define",
+      "defaultValue": "Pistol recoil"
+    },
+    {
+      "key": "DD_FX_TRAIL",
+      "sceneType": "STEALTH",
+      "label": "Pistol trail",
+      "group": "Dead Drop combat",
+      "type": "animationstate",
+      "cType": "define",
+      "defaultValue": "Pistol trail"
+    },
+    {
+      "key": "DD_POSE_WINDUP",
+      "sceneType": "STEALTH",
+      "label": "Knife windup",
+      "group": "Dead Drop combat",
+      "type": "animationstate",
+      "cType": "define",
+      "defaultValue": "Knife windup"
+    },
+    {
+      "key": "DD_POSE_SWEEP",
+      "sceneType": "STEALTH",
+      "label": "Knife sweep",
+      "group": "Dead Drop combat",
+      "type": "animationstate",
+      "cType": "define",
+      "defaultValue": "Knife sweep"
+    },
+    {
+      "key": "DD_POSE_FOLLOW",
+      "sceneType": "STEALTH",
+      "label": "Knife followthrough",
+      "group": "Dead Drop combat",
+      "type": "animationstate",
+      "cType": "define",
+      "defaultValue": "Knife followthrough"
+    },
+    {
+      "key": "DD_FX_IMPACT",
+      "sceneType": "STEALTH",
+      "label": "Impact spark",
+      "group": "Dead Drop combat",
+      "type": "animationstate",
+      "cType": "define",
+      "defaultValue": "Impact spark"
+    }
+  ],
+  "sceneTypes": [
+    {
+      "key": "STEALTH",
+      "label": "Dead Drop Stealth",
+      "files": [
+        "src/states/stealth.c",
+        "include/states/stealth.h"
+      ],
+      "collisionTiles": [
+        {
+          "key": "solid",
+          "color": "#FA2828FF",
+          "mask": 15,
+          "flag": 15,
+          "name": "Solid cover",
+          "icon": "FFFFFFFFFFFFFFFF"
+        },
+        {
+          "key": "shadow",
+          "color": "#234D6EFF",
+          "mask": 16,
+          "flag": 16,
+          "name": "Deep shadow",
+          "icon": "AA55AA55AA55AA55"
+        },
+        {
+          "key": "vent",
+          "color": "#79A6A6FF",
+          "mask": 32,
+          "flag": 32,
+          "name": "Crouch passage",
+          "icon": "FF00FF00FF00FF00"
+        }
+      ]
+    }
+  ]
+}

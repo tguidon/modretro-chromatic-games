@@ -1,0 +1,33 @@
+{
+  "pistol": {
+    "duration": 20,
+    "muzzle_flash": [
+      0,
+      4
+    ],
+    "trail": [
+      5,
+      19
+    ],
+    "recoil_pose": [
+      0,
+      7
+    ]
+  },
+  "knife": {
+    "duration": 18,
+    "windup": [
+      0,
+      3
+    ],
+    "sweep": [
+      4,
+      10
+    ],
+    "followthrough": [
+      11,
+      17
+    ]
+  },
+  "units": "native gameplay updates; original walk pixels and metadata retained"
+}

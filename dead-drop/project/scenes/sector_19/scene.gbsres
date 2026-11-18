@@ -1,0 +1,111 @@
+{
+  "_resourceType": "scene",
+  "id": "8187cd48-2706-5412-8f50-2861374713f4",
+  "_index": 20,
+  "type": "STEALTH",
+  "name": "20 Missile Cargo",
+  "symbol": "scene_sector_19",
+  "x": 360,
+  "y": 1210,
+  "width": 40,
+  "height": 36,
+  "backgroundId": "68ed71e5-c100-5f29-b13f-40b07762d558",
+  "tilesetId": "",
+  "colorModeOverride": "none",
+  "paletteIds": [
+    "ea6dda93-b8f3-556c-9749-876965414b99",
+    "f28ed356-a2f8-52eb-a3a9-612f8fffc360",
+    "afde77f0-8720-5a62-b85b-cdbda2ad12ef",
+    "d79001c2-39b3-585a-a3be-0b54523c9534",
+    "3ccbb039-ab05-57ba-b5d9-14587c218c63",
+    "5b19eb61-a1fe-5e55-bd13-313ac555e1d1",
+    "8bf87903-726a-5cc2-a82d-344992a44123",
+    "default-ui"
+  ],
+  "spritePaletteIds": [
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "51a17850-44e7-5919-b87a-259ce0f66060",
+    "fc540a0d-7f29-5a92-81bb-0acb6c8ad893",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a",
+    "89c1b576-ba6b-5c10-8526-3d1180e1190a"
+  ],
+  "autoFadeSpeed": 1,
+  "script": [
+    {
+      "id": "d9745878-a7a7-5ceb-9199-48c64b232448",
+      "command": "EVENT_REMOVE_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "start"
+        ]
+      }
+    },
+    {
+      "id": "68184239-e58c-5f94-8721-67b6162a786e",
+      "command": "EVENT_DEAD_DROP",
+      "args": {
+        "op": 1,
+        "value": 19
+      }
+    },
+    {
+      "id": "77746a28-51f0-558f-baa8-771fc9026a58",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "119"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [],
+        "false": [
+          {
+            "id": "6d46706f-7bda-533a-bc3b-ca8cd293c3a1",
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "119",
+              "value": {
+                "type": "number",
+                "value": 1
+              }
+            }
+          },
+          {
+            "id": "dfdd9afc-529f-5c28-88ca-4f1adfca97b8",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 4,
+              "value": 0
+            }
+          },
+          {
+            "id": "94c595db-e34c-5edf-8b4b-71431b1bec16",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "MISSILE CARGO.\nPlace your final\ncharge. We only",
+                "burn the guidance\nhardware."
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerHit1Script": [],
+  "playerHit2Script": [],
+  "playerHit3Script": [],
+  "collisions": "0f53+0022+0f6+10c+0016+0f6+10c+009+0f4+009+0f6+10c+001+0f3+005+0f4+009+0f6+10c+001+0f3+0012+0f6+10c+001+0f3+005+104+009+0f6+10c+001+104+0011+0f6+0022+0f22+006+0f22+006+0f6+0017+10b+0f6+0017+10b+0f6+00b+0fe+109+0f6+009+0f10+109+0f6+009+0f10+109+0f6+00b+0fe+109+0f6+009+102+0fe+109+0f6+0011+104+002+10b+0f6+0022+0f6+007+0f21+007+0f21+0022+0f6+10c+0016+0f6+10c+0016+0f6+10c+002+0f6+00e+0f6+10c+002+0f6+00e+0f6+10c+002+0f6+002+0f3+009+0f6+10c+002+0f6+002+0f3+009+0f6+10c+002+104+004+0f3+009+0f6+103+001+108+00a+104+008+0f6+0022+0f6+0022+0f53+",
+  "playerSpriteSheetId": "f76f87cf-037c-56eb-b02b-7c5be1ad46b5"
+}

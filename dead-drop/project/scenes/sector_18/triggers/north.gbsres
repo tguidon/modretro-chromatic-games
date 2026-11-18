@@ -1,0 +1,198 @@
+{
+  "_resourceType": "trigger",
+  "id": "0d3d98a3-2f0c-5033-a4bc-4263f3a9b58b",
+  "_index": 0,
+  "name": "north",
+  "symbol": "trigger_s18_north",
+  "x": 29,
+  "y": 2,
+  "width": 6,
+  "height": 2,
+  "script": [
+    {
+      "id": "4a63d2d5-a3c8-555d-8344-4157672c5fab",
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "eq",
+          "valueA": {
+            "type": "variable",
+            "value": "10"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 1
+          }
+        }
+      },
+      "children": {
+        "true": [
+          {
+            "id": "3bd727f2-bc65-51e7-ab76-e073a6afec57",
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "eq",
+                "valueA": {
+                  "type": "variable",
+                  "value": "3"
+                },
+                "valueB": {
+                  "type": "number",
+                  "value": 1
+                }
+              }
+            },
+            "children": {
+              "true": [
+                {
+                  "id": "bd6c8a1a-d398-52b3-9234-6f89b50ff9db",
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "eq",
+                      "valueA": {
+                        "type": "variable",
+                        "value": "4"
+                      },
+                      "valueB": {
+                        "type": "number",
+                        "value": 1
+                      }
+                    }
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "id": "68400efb-a025-538d-a897-0278b79263cc",
+                        "command": "EVENT_SWITCH_SCENE",
+                        "args": {
+                          "sceneId": "8187cd48-2706-5412-8f50-2861374713f4",
+                          "x": {
+                            "type": "number",
+                            "value": 6
+                          },
+                          "y": {
+                            "type": "number",
+                            "value": 29
+                          },
+                          "direction": "up",
+                          "fadeSpeed": "2"
+                        }
+                      }
+                    ],
+                    "false": [
+                      {
+                        "id": "da395ab7-77da-59a5-9036-eef69ae4e257",
+                        "command": "EVENT_DEAD_DROP",
+                        "args": {
+                          "op": 4,
+                          "value": 0
+                        }
+                      },
+                      {
+                        "id": "46141109-cf09-5351-ad5d-7b8d00f7da79",
+                        "command": "EVENT_TEXT",
+                        "args": {
+                          "text": [
+                            "ENGINE charge\nmissing. Return\nsouth to ENGINE",
+                            "ROOM."
+                          ]
+                        }
+                      },
+                      {
+                        "id": "46b988f7-31e2-55b4-9dba-c71451686ae9",
+                        "command": "EVENT_ACTOR_SET_POSITION",
+                        "args": {
+                          "actorId": "player",
+                          "x": {
+                            "type": "number",
+                            "value": 31
+                          },
+                          "y": {
+                            "type": "number",
+                            "value": 5
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "false": [
+                {
+                  "id": "e977c2ed-094a-566c-a87d-4c295c1d954f",
+                  "command": "EVENT_DEAD_DROP",
+                  "args": {
+                    "op": 4,
+                    "value": 0
+                  }
+                },
+                {
+                  "id": "c4c6cbe6-fdcf-53a9-9201-b05ddf252ed4",
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": [
+                      "COOLANT charge\nmissing. Return\nsouth to PUMP",
+                      "CONTROL."
+                    ]
+                  }
+                },
+                {
+                  "id": "e1886d09-65f9-582d-9827-89da012be78d",
+                  "command": "EVENT_ACTOR_SET_POSITION",
+                  "args": {
+                    "actorId": "player",
+                    "x": {
+                      "type": "number",
+                      "value": 31
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 5
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "false": [
+          {
+            "id": "399a8edb-cfe7-557f-84ec-c1110e78d195",
+            "command": "EVENT_DEAD_DROP",
+            "args": {
+              "op": 4,
+              "value": 0
+            }
+          },
+          {
+            "id": "d1e1ff87-20d1-5c0a-a13e-87e47c429a27",
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Crack the cipher at\nthe terminal."
+              ]
+            }
+          },
+          {
+            "id": "d9f225b6-63ac-5fc0-878d-bb7e504034b8",
+            "command": "EVENT_ACTOR_SET_POSITION",
+            "args": {
+              "actorId": "player",
+              "x": {
+                "type": "number",
+                "value": 31
+              },
+              "y": {
+                "type": "number",
+                "value": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "leaveScript": []
+}
