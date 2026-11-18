@@ -83,6 +83,13 @@ for kind in ['ball','aim','golfer','flag','shadow']:
     else:
         p.ellipse((4,12,12,14),fill='#000000');p.rectangle((6,8,10,11),fill='#aaaaaa');p.rectangle((6,4,10,7),fill='#ffffff');p.rectangle((5,3,11,4),fill='#ffffff');p.line((7,12,6,14),fill='#ffffff');p.line((10,12,11,14),fill='#ffffff');p.line((11,9,14,12),fill='#000000');p.line((13,12,15,12),fill='#ffffff')
     frames=[im]
+    if kind=='golfer':
+        for style in range(3):
+            effect=Image.new('RGB',(16,16),'#00ff00');q=ImageDraw.Draw(effect)
+            color='#aaaaaa' if style==0 else '#ffffff'
+            for x,y in [(2,6),(5,3),(10,4),(13,7),(4,10),(11,11)]:
+                q.line((x,y,x+(1 if x>8 else -1),y-2-style),fill=color)
+            q.arc((3,7,13,13),0,180,fill='#000000');frames.append(effect)
     if kind=='aim':
         frames=[]
         for radius in (4,7):
@@ -99,8 +106,9 @@ for kind in ['ball','aim','golfer','flag','shadow']:
     name=f'{kind}.png';sheet.save(ROOT/'assets/sprites'/name)
     tiledata=[{'id':uid(kind+'tile'+str(x)),'x':x,'y':0,'sliceX':x,'sliceY':0,'flipX':False,'flipY':False,'palette':0,'paletteIndex':0,'objPalette':'OBP0','priority':False} for x in [0,8]]
     animations=[{'id':uid(kind+'anim'+str(a)),'frames':[{'id':uid(kind+'frame'+str(a)), 'tiles':tiledata if a==0 else []}]} for a in range(8)]
-    if kind in ('flag','aim'):
-        animations[0]['frames'].append({'id':uid(kind+'-flutter'), 'tiles':[{**tile,'id':uid(kind+'-flutter-'+str(tile['x'])),'sliceX':tile['sliceX']+16} for tile in tiledata]})
+    for frame_index in range(1,len(frames)):
+        animations[0]['frames'].append({'id':uid(kind+'-frame-'+str(frame_index)), 'tiles':[{**tile,'id':uid(kind+'-frame-'+str(frame_index)+'-'+str(tile['x'])),'sliceX':tile['sliceX']+16*frame_index} for tile in tiledata]})
+
 
     metadata={'_resourceType':'sprite','id':uid(kind),'name':kind.title(),'symbol':'sprite_'+kind,'states':[{'id':uid(kind+'state'),'name':'','animationType':'fixed','flipLeft':False,'animations':animations}],'numTiles':4,'canvasOriginX':0,'canvasOriginY':0,'canvasWidth':16,'canvasHeight':16,'boundsX':6,'boundsY':-2,'boundsWidth':4,'boundsHeight':4,'animSpeed':255,'filename':name,'width':sheet.width,'height':16}
     write(Path('assets/sprites')/(name+'.gbsres'),metadata)

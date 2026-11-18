@@ -27,7 +27,7 @@ static void bj_blank(void) {memset(bj_line,' ',20);bj_line[20]=0;}
 static void bj_put(UBYTE x,const char *s) {while(*s && x<20)bj_line[x++]=*s++;}
 static void bj_num(UBYTE x,UWORD n,UBYTE digits) {while(digits){bj_line[x+digits-1]='0'+n%10;n/=10;digits--;}}
 static void bj_relative(UBYTE x,INT16 n) {bj_line[x]=(n>0)?'+':(n<0)?'-':'E';if(n<0)n=-n;bj_num(x+1,(UWORD)n,2);}
-void bj_close_panel(void) BANKED {ui_set_pos(0,144);}
+void bj_close_panel(void) BANKED {bj_view_close();}
 void bj_draw_hud(void) BANKED {
     INT16 dx=(bj_x>>4)-bj_course.cup_x,dy=(bj_y>>4)-bj_course.cup_y;
     UWORD yards;
@@ -35,16 +35,17 @@ void bj_draw_hud(void) BANKED {
     bj_predict();
     if(dx<0)dx=-dx;if(dy<0)dy=-dy;
     yards=((dx>dy)?dx+dy*3/8:dy+dx*3/8)*3;
-    bj_blank();bj_num(0,bj_hole+1,2);bj_put(3,bj_course.name);bj_text(0,bj_line,0);
-    bj_blank();bj_put(0,"PAR ");bj_num(4,bj_course.par,1);bj_put(6,"SHOT ");bj_num(11,bj_strokes,2);bj_num(15,yards,3);bj_put(18,"Y");bj_text(1,bj_line,0);
-    bj_blank();bj_put(0,bj_clubs[bj_club]);bj_num(7,(UWORD)bj_carry()*3,3);bj_put(10,"Y P");bj_num(13,bj_power,3);bj_put(16,"%");bj_put(18,"B>");bj_text(16,bj_line,0);
+    bj_blank();bj_num(0,bj_hole+1,2);bj_put(3,bj_course.name);bj_text(0,bj_line,bj_view_active);
+    bj_blank();bj_put(0,"PAR ");bj_num(4,bj_course.par,1);bj_put(6,"SHOT ");bj_num(11,bj_strokes,2);bj_num(15,yards,3);bj_put(18,"Y");bj_text(1,bj_line,bj_view_active);
+    bj_blank();bj_put(0,bj_clubs[bj_club]);bj_num(7,(UWORD)bj_carry()*3,3);bj_put(10,"Y P");bj_num(13,bj_power,3);bj_put(16,"%");bj_put(18,"B>");bj_text(16,bj_line,bj_view_active);
     bj_blank();
     if(bj_notice==1)bj_put(0,"WATER +1 / DROP BALL");
     else if(bj_notice==2)bj_put(0,"TREES / TRY A WEDGE");
     else if(bj_notice==4)bj_put(0,"NICE SHOT!");
     else if(bj_notice==5)bj_put(0,bj_accuracy<0?"LATE / PULLED LEFT":"EARLY / PUSHED RIGHT");
     else {bj_put(0,bj_lies[bj_terrain(bj_hole,(UBYTE)bj_target_x,(UBYTE)bj_target_y)]);bj_put(5," +/-");bj_num(9,bj_spread*3,2);bj_put(11,"Y");bj_put(14,"W:");bj_put(16,bj_wind_x<0?"<":bj_wind_x>0?">":"-");bj_put(17,bj_wind_y<0?"^":"V");bj_num(18,bj_wind_speed(),1);}
-    bj_text(17,bj_line,0);
+    bj_text(17,bj_line,bj_view_active);
+    if(bj_view_active) {bj_text(14,bj_z?"     BALL IN FLIGHT":"     BOUNCE / ROLL",1);bj_text(15,"",1);}
 }
 void bj_shot_meter(void) BANKED {
     UBYTE i,pos,pixel,target,mask,tiles[16],attrs[16],cursor[16];

@@ -43,6 +43,99 @@
                   "priority": false
                 }
               ]
+            },
+            {
+              "id": "6b99f3ba-f30e-5aaa-81ea-13461763c8a7",
+              "tiles": [
+                {
+                  "id": "3c559599-949c-545d-a2fd-01555a27288a",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 16,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "4fcae639-e5db-5c90-8fb3-530eedccaa9d",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 24,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
+            },
+            {
+              "id": "a71d00ea-cc5c-597a-a5f5-033a7428c57f",
+              "tiles": [
+                {
+                  "id": "4fc62958-39f0-5152-8798-539b3e1f8088",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 32,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "a95b2586-9577-546b-a4f8-697b8f089256",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 40,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
+            },
+            {
+              "id": "76e1e219-a1ce-5d3b-8706-14b548a19919",
+              "tiles": [
+                {
+                  "id": "19fc7f82-efe3-554d-8a7a-5a9390f7f0f2",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 48,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "ff376a43-78ee-56c4-a1cb-4e07fe976dee",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 56,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
             }
           ]
         },
@@ -123,6 +216,6 @@
   "boundsHeight": 4,
   "animSpeed": 255,
   "filename": "golfer.png",
-  "width": 16,
+  "width": 64,
   "height": 16
 }
