@@ -4,7 +4,8 @@
 
 // Position and horizontal speed use 8 fractional bits; altitude uses 4.
 // Gravity, drag and slope acceleration are integrated every game update.
-INT16 bj_z, bj_vx, bj_vy;
+INT16 bj_z, bj_vx, bj_vy, bj_target_x, bj_target_y;
+UBYTE bj_spread;
 INT8 bj_wind_x, bj_wind_y;
 UBYTE bj_bounces, bj_roll_frames;
 static INT32 px,py;
@@ -24,6 +25,16 @@ UBYTE bj_carry(void) BANKED {
         else if(lie==BJ_ROUGH)distance=distance*3/4;
     }
     return distance?distance:1;
+}
+void bj_predict(void) BANKED {
+    UBYTE distance=bj_carry(),lie=bj_terrain(bj_hole,bj_x>>4,bj_y>>4);
+    UWORD time=bj_club==4?0:loft[bj_club];
+    bj_target_x=(bj_x>>4)+((INT32)bj_cos[bj_angle]*distance/256);
+    bj_target_y=(bj_y>>4)+((INT32)bj_sin[bj_angle]*distance/256);
+    // Same quarter-rate wind acceleration as flight; this is carry, not rollout.
+    bj_target_x+=(INT32)bj_wind_x*time*time/2048;
+    bj_target_y+=(INT32)bj_wind_y*time*time/2048;
+    bj_spread=bj_club==4?1:2+distance/18+(lie==BJ_ROUGH?2:lie==BJ_SAND?3:0);
 }
 void bj_physics_start(void) BANKED {
     INT16 speed,error=bj_accuracy;

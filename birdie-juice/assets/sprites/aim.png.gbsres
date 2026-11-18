@@ -43,6 +43,37 @@
                   "priority": false
                 }
               ]
+            },
+            {
+              "id": "7ec6bfac-ca7a-5bb1-8f41-a6b8a0d56d73",
+              "tiles": [
+                {
+                  "id": "2066ff8e-2720-5622-bcb2-ad5a0eaddead",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 16,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "05cdf949-724a-5afb-a617-e8d716b18fc1",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 24,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
             }
           ]
         },
@@ -123,6 +154,6 @@
   "boundsHeight": 4,
   "animSpeed": 255,
   "filename": "aim.png",
-  "width": 16,
+  "width": 32,
   "height": 16
 }

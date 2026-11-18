@@ -32,6 +32,7 @@ void bj_draw_hud(void) BANKED {
     INT16 dx=(bj_x>>4)-bj_course.cup_x,dy=(bj_y>>4)-bj_course.cup_y;
     UWORD yards;
     UBYTE lie=bj_terrain(bj_hole,(UBYTE)(bj_x>>4),(UBYTE)(bj_y>>4));
+    bj_predict();
     if(dx<0)dx=-dx;if(dy<0)dy=-dy;
     yards=((dx>dy)?dx+dy*3/8:dy+dx*3/8)*3;
     bj_blank();bj_num(0,bj_hole+1,2);bj_put(3,bj_course.name);bj_text(0,bj_line,0);
@@ -42,7 +43,7 @@ void bj_draw_hud(void) BANKED {
     else if(bj_notice==2)bj_put(0,"TREES / TRY A WEDGE");
     else if(bj_notice==4)bj_put(0,"NICE SHOT!");
     else if(bj_notice==5)bj_put(0,"OFF CENTER!");
-    else {bj_put(0,bj_lies[lie]);bj_put(6,"A SWING");bj_put(14,"W:");bj_put(16,bj_wind_x<0?"<":bj_wind_x>0?">":"-");bj_put(17,bj_wind_y<0?"^":"V");bj_num(18,bj_wind_speed(),1);}
+    else {bj_put(0,bj_lies[bj_terrain(bj_hole,(UBYTE)bj_target_x,(UBYTE)bj_target_y)]);bj_put(5," +/-");bj_num(9,bj_spread*3,2);bj_put(11,"Y");bj_put(14,"W:");bj_put(16,bj_wind_x<0?"<":bj_wind_x>0?">":"-");bj_put(17,bj_wind_y<0?"^":"V");bj_num(18,bj_wind_speed(),1);}
     bj_text(17,bj_line,0);
 }
 void bj_shot_meter(void) BANKED {
@@ -102,8 +103,8 @@ void bj_draw_panel(void) BANKED {
         bj_text(9,"HIT GREEN ON RETURN",1);
         bj_text(10,"WIND BENDS AIR SHOTS",1);
         bj_text(11,"SAND? USE THE WEDGE",1);
-        bj_text(12,"WATER COSTS 1 SHOT",1);
-        bj_text(13,"GREEN ARROWS = SLOPE",1);
+        bj_text(12,"RING = CARRY SPREAD",1);
+        bj_text(13,"LANDING LIE IN HUD",1);
         bj_text(14,"12 SHOTS = PICK UP",1);
         bj_text(16,"    A / B  BACK",1);
     } else if(bj_mode==BJ_CARD) {

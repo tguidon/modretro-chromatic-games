@@ -68,9 +68,8 @@ static void bj_place_actors(UBYTE height) {
     PLAYER.pos.y=(UWORD)((bj_y-((INT16)height<<4))*2);
     CLR_FLAG(PLAYER.flags,ACTOR_FLAG_HIDDEN|ACTOR_FLAG_COLLISION);
     if(bj_mode==BJ_AIM) {
-        UBYTE distance=bj_carry();
-        mx=(bj_x>>4)+((bj_cos[bj_angle]*distance)>>8);
-        my=(bj_y>>4)+((bj_sin[bj_angle]*distance)>>8);
+        mx=bj_target_x;my=bj_target_y;
+        actor_set_frame_offset(&actors[1],bj_spread>4?1:0);
         if(mx>=8 && mx<152 && my>=20 && my<125) {
             actors[1].pos.x=(UWORD)((mx-8)*32);
             actors[1].pos.y=(UWORD)(my*32);
@@ -152,7 +151,7 @@ void golf_init(void) BANKED {
     bj_mode=bj_hole?BJ_AIM:BJ_TITLE;
     bj_meter=0;bj_accuracy=0;bj_z=0;bj_wind_x=bj_course.wind_x;bj_wind_y=bj_course.wind_y;
     camera_offset_x=0;camera_offset_y=0;camera_deadzone_x=0;camera_deadzone_y=0;
-    bj_load_font();bj_auto_aim();
+    bj_load_font();bj_auto_aim();bj_predict();
     actors[3].pos.x=(bj_course.cup_x-8)*32;
     actors[3].pos.y=(bj_course.cup_y-3)*32;
     bj_place_actors(0);
@@ -164,7 +163,7 @@ void golf_update(void) BANKED {
     if(bj_wait && bj_wait!=255)bj_wait--;
     if(bj_hud_tick<2) {bj_hud_tick++;bj_draw_hud();}
     if(bj_mode==BJ_TITLE) {
-        if(!bj_wait && (pressed&J_A)) {bj_mode=BJ_AIM;bj_close_panel();bj_sound(180);}
+        if(!bj_wait && (pressed&J_A)) {bj_mode=BJ_AIM;bj_close_panel();bj_sound(180);bj_draw_hud();}
         else if(pressed&J_START) {bj_help_return=BJ_TITLE;bj_mode=BJ_HELP;bj_draw_panel();}
     } else if(bj_mode==BJ_HELP) {
         if(pressed&(J_A|J_B|J_START)) {bj_mode=bj_help_return;if(bj_mode==BJ_AIM)bj_close_panel();else bj_draw_panel();}
