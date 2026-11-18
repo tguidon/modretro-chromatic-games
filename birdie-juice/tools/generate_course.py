@@ -41,13 +41,13 @@ for n in range(32,96):
 engine=ROOT/'plugins/birdie-golf/engine'
 fontstr=','.join(str(x) for x in font)
 (engine/'src/core/birdie_font.c').write_text('#pragma bank 255\n#include <gbdk/platform.h>\n#include "states/golf.h"\nstatic const UBYTE bj_font[]={'+fontstr+'};\nvoid bj_load_font(void) BANKED { VBK_REG=0; set_bkg_data(128,64,bj_font); }\n')
-shades=[255,170,85,0]
-terrain_codes={'r':0,'f':1,'g':2,'s':3,'w':4,'t':5}
-terrain_c=[];hole_c=[]
+hole_c=[]
 for i,h in enumerate(course['holes']):
-    n=i+1;rows=[list(r) for r in h['terrain']]
-    image,attrs=draw_course(h)
+    n=i+1
+    image,attrs,terrain=draw_course(h)
     tx,ty=h['tee'];hx,hy=h['cup']
+    assert terrain.getpixel((tx*8+4,ty*8+4))==1, (n,'tee must be fairway')
+    assert terrain.getpixel((hx*8+4,hy*8+4))==2, (n,'cup must be on green')
     filename=f'hole_{n:02}.png';image.convert('RGB').save(ROOT/'assets/backgrounds'/filename)
     write(Path('assets/backgrounds')/(filename+'.gbsres'),{'_resourceType':'background','id':uid('bg'+str(n)),'name':f'{n:02} {h["name"]}','symbol':f'bg_hole_{n:02}','tileColors':pack(attrs),'filename':filename,'width':20,'height':18,'imageWidth':160,'imageHeight':144,'autoColor':False})
     scene={'_resourceType':'scene','id':uid('hole'+str(n)),'_index':i,'type':'GOLF','name':f'{n:02} {h["name"]} - Par {h["par"]}','symbol':f'scene_hole_{n:02}','x':i%3*240,'y':i//3*210,'width':20,'height':18,'backgroundId':uid('bg'+str(n)),'tilesetId':'','colorModeOverride':'none','paletteIds':[],'spritePaletteIds':['sprite']*8,'playerSpriteSheetId':uid('ball'),'autoFadeSpeed':1,'script':[],'playerHit1Script':[],'playerHit2Script':[],'playerHit3Script':[],'collisions':pack([0]*360),'notes':f'Tee {h["tee"]}, cup {h["cup"]}. Course data: course/holes.json. Rules: plugins/birdie-golf.'}
@@ -58,11 +58,17 @@ for i,h in enumerate(course['holes']):
         script=[{'id':uid('next'+str(n)),'command':'EVENT_SWITCH_SCENE','args':{'sceneId':uid('hole'+str(nxt)),'x':{'type':'number','value':nx},'y':{'type':'number','value':ny},'direction':'up','fadeSpeed':'2'}}] if kind=='aim' else []
         actor={'_resourceType':'actor','_index':index,'id':uid(f'{n}-{kind}'),'symbol':f'actor_{n:02}_{kind}','name':kind.title(),'prefabId':'','coordinateType':'tiles','x':x,'y':y,'frame':0,'animate':False,'spriteSheetId':uid(kind),'paletteId':'sprite','direction':'down','moveSpeed':1,'animSpeed':255,'isPinned':False,'persistent':True,'collisionGroup':'','collisionExtraFlags':[],'prefabScriptOverrides':{},'script':script,'startScript':[],'updateScript':[],'hit1Script':[],'hit2Script':[],'hit3Script':[]}
         write(folder/f'actors/{index+1:02}_{kind}.gbsres',actor)
-    terrain_c.append('{'+','.join(str(terrain_codes[c]) for row in rows for c in row)+'}')
+    terrain.save(ROOT/f'course/art/hole_{n:02}_terrain.png')
+    values=[terrain.getpixel((x,y)) for y in range(16,128,2) for x in range(0,160,2)]
+    packed=[values[j]|(values[j+1]<<4) for j in range(0,len(values),2)]
+    (engine/f'src/core/birdie_terrain_{n:02}.c').write_text('#pragma bank 255\n#include "states/golf.h"\nstatic const UBYTE map[]={'+','.join(map(str,packed))+'};\nUBYTE bj_terrain_'+str(n)+'(UWORD cell) BANKED {UBYTE value=map[cell>>1];return (cell&1)?value>>4:value&15;}\n')
     wind=h.get('wind',[(n%3)-1,-2+(n%3)])
     slope=h.get('slope',[1 if n%2 else -1,1])
     hole_c.append('{'+f'{h["par"]},{tx*8+4},{ty*8+4},{hx*8+4},{hy*8+4},"{h["name"].upper()}",'+','.join(map(str,wind+slope))+'}')
-(engine/'src/core/birdie_course.c').write_text('#pragma bank 255\n#include <string.h>\n#include "states/golf.h"\nstatic const bj_hole_t bj_holes[9]={'+','.join(hole_c)+'};\nstatic const UBYTE bj_terrain_map[9][360]={'+','.join(terrain_c)+'};\nvoid bj_read_hole(UBYTE hole,bj_hole_t *dest) BANKED {memcpy(dest,&bj_holes[hole],sizeof(bj_hole_t));}\nUBYTE bj_terrain(UBYTE hole,UBYTE x,UBYTE y) BANKED {if(x>=160||y<16||y>=128)return BJ_WATER;return bj_terrain_map[hole][((UWORD)(y>>3))*20+(x>>3)];}\n')
+terrain_api=''.join(f'UBYTE bj_terrain_{n}(UWORD cell) BANKED;\n' for n in range(1,10))
+terrain_switch=''.join(f'case {n-1}:return bj_terrain_{n}(cell);' for n in range(1,10))
+(engine/'src/core/birdie_course.c').write_text('#pragma bank 255\n#include <string.h>\n#include "states/golf.h"\n'+terrain_api+'static const bj_hole_t bj_holes[9]={'+','.join(hole_c)+'};\nvoid bj_read_hole(UBYTE hole,bj_hole_t *dest) BANKED {memcpy(dest,&bj_holes[hole],sizeof(bj_hole_t));}\nUBYTE bj_terrain(UBYTE hole,UBYTE x,UBYTE y) BANKED {UWORD cell;if(x>=160||y<16||y>=128)return BJ_WATER;cell=((UWORD)((y-16)>>1))*80+(x>>1);switch(hole){'+terrain_switch+'}return BJ_WATER;}\n')
+
 # Transparent green is GB Studio's native sprite key. The other colors map to sprite indices 1..3.
 for kind in ['ball','aim','golfer','flag','shadow']:
     im=Image.new('RGB',(16,16),'#00ff00');p=ImageDraw.Draw(im)

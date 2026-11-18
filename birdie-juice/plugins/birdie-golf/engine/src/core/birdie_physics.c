@@ -1,5 +1,6 @@
 #pragma bank 255
 #include "states/golf.h"
+#include "states/birdie_direction.h"
 
 // Position and horizontal speed use 8 fractional bits; altitude uses 4.
 // Gravity, drag and slope acceleration are integrated every game update.

@@ -24,7 +24,6 @@ void bj_shot_art(void) BANKED;
 void bj_shot_pose(UBYTE pose) BANKED;
 void bj_shot_open(void) BANKED;
 void bj_shot_meter(void) BANKED;
-extern const INT16 bj_cos[64], bj_sin[64];
 void golf_init(void) BANKED;
 void golf_update(void) BANKED;
 void bj_read_hole(UBYTE hole, bj_hole_t *dest) BANKED;

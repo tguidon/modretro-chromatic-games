@@ -110,6 +110,12 @@ direct builds produce the `.sym` file used as a fallback.
 `plugins/birdie-golf/` adds a game-specific scene type for golf physics and scoring, using GB Studio's supported extension format.
 
 `course/holes.json` defines the layouts, terrain, tees, cups, pars, wind, and green slopes.
+Its `contours` define curved fairway centerlines (`x`, `y`, radius) and closed
+green, bunker, and water outlines in screen pixels. `tools/course_shapes.py`
+rasterizes these into a shared two-pixel surface map for artwork and ball physics.
+The legacy tile rows retain tree footprints and provide a coarse layout reference.
+Generated `course/art/hole_*_terrain.png` masks store surface codes 0–5, and the
+banked `birdie_terrain_*.c` files pack two surface cells per byte for the ROM.
 `tools/generate_course.py` regenerates course assets, native scene resources, and course lookup data from that file.
 It requires Pillow and replaces those generated files, so preserve editor changes before running it.
 `tools/course_art.py` draws the original course tiles and palettes.

@@ -1,6 +1,7 @@
 #pragma bank 255
 #include <string.h>
 #include "states/golf.h"
+#include "states/birdie_direction.h"
 #include "actor.h"
 #include "camera.h"
 #include "data_manager.h"
@@ -28,8 +29,6 @@ bj_hole_t bj_course;
 static INT16 bj_from_x, bj_from_y;
 static UBYTE bj_repeat, bj_hud_tick, bj_wait, bj_swing_tick, bj_meter_back;
 INT16 bj_meter, bj_accuracy;
-const INT16 bj_cos[64]={256,255,251,245,237,226,213,198,181,162,142,121,98,74,50,25,0,-25,-50,-74,-98,-121,-142,-162,-181,-198,-213,-226,-237,-245,-251,-255,-256,-255,-251,-245,-237,-226,-213,-198,-181,-162,-142,-121,-98,-74,-50,-25,0,25,50,74,98,121,142,162,181,198,213,226,237,245,251,255};
-const INT16 bj_sin[64]={0,25,50,74,98,121,142,162,181,198,213,226,237,245,251,255,256,255,251,245,237,226,213,198,181,162,142,121,98,74,50,25,0,-25,-50,-74,-98,-121,-142,-162,-181,-198,-213,-226,-237,-245,-251,-255,-256,-255,-251,-245,-237,-226,-213,-198,-181,-162,-142,-121,-98,-74,-50,-25};
 
 static void bj_sound(UBYTE tone) {
     NR52_REG=0x80; NR50_REG=0x77; NR51_REG=0xFF;

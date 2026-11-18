@@ -14,6 +14,7 @@ NOI=ROOT/'build/birdie-juice.gbc.debug/symbols.noi'
 SYM=ROOT/'build/birdie-juice.sym'
 OUT=ROOT/'artifacts/playtests/regression';OUT.mkdir(parents=True,exist_ok=True)
 course=json.loads((ROOT/'course/holes.json').read_text())['holes']
+terrain_masks=[Image.open(ROOT/f'course/art/hole_{n:02}_terrain.png') for n in range(1,10)]
 symbols={}
 source=NOI if NOI.exists() and NOI.stat().st_mtime>=ROM.stat().st_mtime-2 else SYM
 for line in source.read_text().splitlines():
@@ -73,7 +74,7 @@ class Game:
 
 def terrain(h,x,y):
     if not (0<=x<160 and 16<=y<128):return 'w'
-    return h['terrain'][int(y)//8][int(x)//8]
+    return 'rfgswt'[terrain_masks[h['hole']-1].getpixel((int(x)//2*2,int(y)//2*2))]
 
 def plan(s,h):
     x,y=s['x'],s['y'];cx,cy=[v*8+4 for v in h['cup']]
@@ -125,17 +126,13 @@ if __name__=='__main__':
     while g.byte('mode')==0:g.aim(0,32);g.swing()
     assert g.byte('mode')==2 and g.byte('strokes')==12;g.tick(30);g.press('a');g.tick(90);assert g.byte('hole')==1;g.close()
     checks+=['out of bounds costs one penalty stroke and restores lie','12 stroke pickup and native next-hole transition']
-    g=Game('full-round');g.start();scores=[];rolls=[];sand_checks=0
+    g=Game('full-round');g.start();scores=[];rolls=[]
     for index,h in enumerate(course):
         assert g.byte('hole')==index,g.state()
         for shot in range(12):
             if g.byte('mode')!=0:break
             s=g.state();club,power,angle=plan(s,h)
             g.aim(club,angle);r=g.swing(power)
-            if terrain(h,s['x'],s['y'])=='s' and club==0 and power==100:
-                travel=math.hypot(r['result']['x']-s['x'],r['result']['y']-s['y'])
-                assert travel<dist(full)*.65,(travel,r['result'])
-                sand_checks+=1;g.snap('bunker-recovery')
             if club==4:rolls.append({'start':s,'path':r['positions'],'end':r['result']})
             print('Hole',index+1,'shot',shot+1,'club/power/angle',(club,power,angle),'->',g.state(),flush=True)
         s=g.state();assert s['mode'] in [2,3],s
@@ -147,7 +144,12 @@ if __name__=='__main__':
     g.snap('round-complete');frames=g.frames;g.tick(30);g.press('a');g.tick(90)
     assert g.byte('mode')==4 and g.word('total')==0
     g.start();assert list(g.p.memory[a:a+9])==[0]*9;g.close()
-    assert sand_checks>0,'round must exercise a real bunker lie'
+    bunker=Game('bunker-carry');bunker.start();bunker.swing(100)
+    bunker.aim(3,6);bunker.swing(65);before=bunker.state()
+    assert terrain(course[0],before['x'],before['y'])=='s',before
+    bunker.snap('bunker-lie');bunker.aim(0,48);recovery=bunker.swing(100)['result']
+    assert math.hypot(recovery['x']-before['x'],recovery['y']-before['y'])<dist(full)*.65,recovery
+    bunker.close()
     checks+=['bunker lie reduces driver carry','all nine holes reached and holed without pickup','scorecard total and new-round reset']
     # Curvature: compare middle of an actual putt with the start/end chord.
     breaks=[]
