@@ -91,3 +91,22 @@ The Birdie linker symbols place the earlier failing offset 0x232 inside
 `_script_cmds` (starting at 0x206), its script command table. That locates a failed
 readback byte; it does not indicate a runtime script error. Both original
 verification failures occurred during installation, before verified gameplay.
+
+## Installation outcome (November 18, 2026)
+
+Checkpoints 5 and 6 both flashed successfully and the user confirmed all eight
+buttons worked on the physical Chromatic. Following those controls, checkpoint 7
+flashed the exact previously failing native Birdie ROM successfully:
+
+- ROM SHA-256: `90f92dad08b36b092b1dbb9818dfe56412bdbe0b9558f14c438fa5b09c7bfefd`
+- Size: 131,072 bytes; no ROM modifications between its failed and successful attempts.
+- Successful operation: `28eb9167c548bdb72bbca331af48e875e09ab988dabd0aa28b659bcfee983c97`
+- Vendor CLI 1.2.1 reported success and closed with exit code 0.
+
+The earlier installation failure did not reproduce. This does not identify its
+cause or prove that the comparison sequence repaired anything. No production
+ROM patch is justified by these install results. Physical Birdie boot/gameplay
+confirmation is still pending; its exact-image emulator regression already
+passed all 17 checks across 15,901 frames, including a full nine-hole round.
+Detailed operation and user-report evidence is retained in
+`artifacts/button-comparison/` and `artifacts/rom-audit/`.
