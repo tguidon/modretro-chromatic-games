@@ -6,7 +6,7 @@
   "name": "Aim",
   "prefabId": "",
   "coordinateType": "tiles",
-  "x": 5,
+  "x": 4,
   "y": 14,
   "frame": 0,
   "animate": false,

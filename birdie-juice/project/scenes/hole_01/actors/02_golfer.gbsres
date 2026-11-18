@@ -6,7 +6,7 @@
   "name": "Golfer",
   "prefabId": "",
   "coordinateType": "tiles",
-  "x": 4,
+  "x": 3,
   "y": 14,
   "frame": 0,
   "animate": false,

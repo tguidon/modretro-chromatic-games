@@ -1,0 +1,18 @@
+{
+  "_resourceType": "palette",
+  "id": "sky",
+  "name": "Sky",
+  "colors": [
+    "C7EEED",
+    "87D6DF",
+    "4AAAC7",
+    "377B9C"
+  ],
+  "defaultName": "sky",
+  "defaultColors": [
+    "C7EEED",
+    "87D6DF",
+    "4AAAC7",
+    "377B9C"
+  ]
+}

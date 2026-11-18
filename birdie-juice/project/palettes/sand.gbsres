@@ -3,16 +3,16 @@
   "id": "sand",
   "name": "Sand",
   "colors": [
-    "EED7A6",
-    "D4BA87",
-    "B79B6D",
-    "7B6B4B"
+    "F4D48F",
+    "DDB56C",
+    "BE8C52",
+    "805F3C"
   ],
   "defaultName": "sand",
   "defaultColors": [
-    "EED7A6",
-    "D4BA87",
-    "B79B6D",
-    "7B6B4B"
+    "F4D48F",
+    "DDB56C",
+    "BE8C52",
+    "805F3C"
   ]
 }

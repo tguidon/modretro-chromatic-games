@@ -1,27 +1,35 @@
 # Birdie Juice
 
-A top-down golf game for Game Boy Color and ModRetro Chromatic.
+A golf game for Game Boy Color and ModRetro Chromatic, with an overhead course
+view and a separate illustrated swing camera.
 Play the Sunrise Nine, a full round with two par 3s, five par 4s, and two par 5s.
 The course totals par 36.
 
 Choose a driver, 5 wood, 7 iron, wedge, or putter.
-Adjust the aim and power, then send the ball toward the flag.
-The crosshair shows the intended landing point.
+Plan your aim and target power on the map, then time a three-press swing:
+press A to start the meter, A to set power, and A again as the returning cursor
+crosses the green diamond. Early and late contact changes direction and distance.
+The crosshair estimates calm-air carry; wind, bounce, and rollout change the result.
 
 ## Controls
 
 | Control | Action |
 | --- | --- |
 | Left / Right | Rotate the aim |
-| Up / Down | Increase / decrease power |
-| A | Hit the ball, start a round, or advance after a hole |
+| Up / Down | Set the target power shown by the marker |
+| A | Start meter → set power → time contact; also start/advance a round |
 | B | Select the next club or close a menu |
 | Select | Select the previous club |
 | Start | Open the scorecard, or open help from the title |
 
-In the browser export, use the arrow keys, Z for A, X for B, Enter for Start, and Shift for Select.
+During the rising power meter, B cancels without taking a stroke. Once power is
+locked, missing the returning accuracy window produces a mishit.
+
+In the plugin browser player, use the arrow keys, Z for A, X for B, Enter for Start,
+and P for Select (the standalone GB Studio export also supports Shift).
 The game aims toward the cup after each shot. You can change that aim before the next shot.
-Power ranges from 5% to 100%.
+Target power ranges from 5% to 100%; the timed meter sets the actual shot power.
+The HUD shows approximate yards remaining and nominal carry at the selected power.
 
 ## Course and rules
 
@@ -38,10 +46,21 @@ Power ranges from 5% to 100%.
 | 9 | Last Call | 4 |
 | Total | Sunrise Nine | 36 |
 
-Rough reduces carry for the driver, wood, and iron. Bunkers halve their carry.
-The wedge keeps its carry in sand and rough. The putter rolls along the ground and can enter the cup along its path.
-Water and out-of-bounds landings add one penalty stroke and return the ball to its previous position.
-Trees return a blocked landing to the previous position without an extra penalty stroke.
+Morning Dew now has a creek crossing and a smaller green guarded by bunkers.
+The Dogleg Punch grove blocks a low driver shortcut; Island Lime rewards a lay-up
+below the creek before the approach. Long Pour has a longer tee-to-pin distance.
+
+Air shots use velocity, gravity, club-specific loft, and wind. A ground shadow
+separates the airborne ball from its position on the course. Fairway and green
+landings bounce; rough and sand absorb the impact. Rolling friction depends on
+the surface. Rough reduces driver, wood, and iron carry by a quarter; bunkers halve
+it. The wedge keeps its carry from those lies.
+
+Green chevrons point downhill. Putts curve with that slope, and downhill putts
+travel farther. Aim uphill and choose power carefully: a fast ball can run across
+the cup. Water landings and out-of-bounds shots add one penalty stroke and return
+the ball to its previous safe lie. Low shots deflect off trees without an extra
+penalty. A ball trapped inside a tree footprint returns to the previous lie.
 The game records a maximum of 12 strokes per hole, then picks up the ball.
 
 The scorecard records all nine holes and the total score relative to par.
@@ -76,9 +95,13 @@ For automated tests, use Python with PyBoy 2.7.0 and Pillow installed:
 python3 tools/playtest.py
 ```
 
-The test plays all nine holes through controller inputs and reads matching build symbols for assertions.
-It also exercises menus, club selection, water penalties, bunker carry, pickup, and a new round.
-Screenshots, input journals, and `report.json` go into `artifacts/playtests/`.
+The test plays all nine holes through controller inputs and reads matching build
+symbols for assertions, without memory writes or teleports. It also exercises
+timed and missed swings, cancellation, gravity, bounce, curved putts, water and
+OB penalties, bunker carry, tree deflection, pickup, and a new round.
+Screenshots, exact input journals, and `report.json` go into
+`artifacts/playtests/regression/`. Plugin builds should request debug artifacts;
+direct builds produce the `.sym` file used as a fallback.
 
 ## Source files
 
@@ -86,10 +109,22 @@ Screenshots, input journals, and `report.json` go into `artifacts/playtests/`.
 `assets/` contains the editable backgrounds, sprites, font, and dialogue frame.
 `plugins/birdie-golf/` adds a game-specific scene type for golf physics and scoring, using GB Studio's supported extension format.
 
-`course/holes.json` defines the layouts, terrain, tees, cups, and pars.
+`course/holes.json` defines the layouts, terrain, tees, cups, pars, wind, and green slopes.
 `tools/generate_course.py` regenerates course assets, native scene resources, and course lookup data from that file.
 It requires Pillow and replaces those generated files, so preserve editor changes before running it.
-Edit gameplay in `plugins/birdie-golf/engine/src/states/golf.c` and menus in `engine/src/core/birdie_ui.c` within that extension.
+`tools/course_art.py` draws the original course tiles and palettes.
+`tools/generate_shot_art.py` produces the mountain panorama and four swing poses;
+run it after changing shot artwork. Its editable source previews live in `course/art/`.
+
+Edit the game state machine in `plugins/birdie-golf/engine/src/states/golf.c`,
+physics in `engine/src/core/birdie_physics.c`, and menus in
+`engine/src/core/birdie_ui.c` within that extension.
+
+The shot camera reserves 109 panorama tiles, three meter tiles, and 16 animated
+pose tiles in CGB VRAM bank 1 at `0x9000`. Course art stays below 128 tiles in bank 0,
+leaving the separate 64-tile HUD font intact. Sprite objects occupy their ordinary
+engine allocation. The panorama is illustrated scenery; the map shows the actual
+hole geometry and ball trajectory.
 
 The course artwork, sprites, golf rules, and HUD font were created for Birdie Juice.
 The baseline dialogue font and frame come from the ModRetro original starter.

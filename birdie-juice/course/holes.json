@@ -7,50 +7,58 @@
       "name": "Morning Dew",
       "par": 4,
       "tee": [
-        5,
+        4,
         14
       ],
       "cup": [
-        13,
+        14,
         4
       ],
       "fairwayRoute": [
         [
-          5,
+          4,
           14
         ],
         [
-          6,
+          7,
           10
         ],
         [
-          9,
-          6
+          10,
+          7
         ],
         [
-          13,
+          14,
           4
         ]
       ],
       "terrain": [
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
-        "rrrrrrrrrrrrrfrrrrrr",
-        "rrrrrrrrrrrfgggrrrrr",
-        "rrrrrrrrrfffgggfrrrr",
-        "rrrrrrrrffffgggrrrrr",
-        "rrrwwrrfffffffrrrrrr",
-        "rrrwwrffffffssrrrrrr",
+        "rrttrrrrrrrrttrrrtrr",
+        "rrtrrrrrrrrssgggsrrr",
+        "rrrrrrrrrrrfsgggsrtr",
+        "rrrrrrrrrfffsgggsrrr",
+        "rrrtttrrfffffssrrrrr",
+        "rrrrrrrrfffffrrrrtrr",
+        "rwwwwwwwwfffwwwwwwrr",
+        "rrrrrrrfffffrrrrrrrr",
+        "rrttrrffffffssrrrtrr",
         "rrrrrffffffrrrrrrrrr",
-        "rrrrrfffffrrrrrrrrrr",
-        "rrtrfffffrrrrrrrrrrr",
-        "rrrrfffffrrrrrrrrtrr",
-        "rrrrffffrrrrrrrrrrrr",
-        "rrrfffffrrrrrrrrrrrr",
-        "rrrfffffrrrrrrrrrrrr",
-        "rrrrfffrrrrrrrrrrrrr",
+        "rrrrffffffrrrrttrrrr",
+        "rrrfffffrrttrrrrrrrr",
+        "rrrffffrrrrrrrrrrrrr",
+        "rrrrfffrrrrrrttrrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "slope": [
+        1,
+        1
+      ],
+      "wind": [
+        3,
+        1
       ]
     },
     {
@@ -98,6 +106,14 @@
         "rrrrfffrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "wind": [
+        -2,
+        1
+      ],
+      "slope": [
+        -1,
+        1
       ]
     },
     {
@@ -140,15 +156,23 @@
         "rrrrrrrrrrrffsfffrrr",
         "rrrrffffffffffffrrrr",
         "rrrffffffffffffrrrrr",
-        "rrffffffffffffrrrrrr",
-        "rrffffffffffssrrrrrr",
-        "rrffffffffffrrrrrtrr",
+        "rrffffftttffffrrrrrr",
+        "rrffffftttffssrrrrrr",
+        "rrffffftttffrrrrrtrr",
         "rrfffffrrrrrrrrrrrrr",
         "rrfffffrrrrrrrrrrrrr",
         "rrfffffrrrrrrrrrrrrr",
         "rrrfffrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "wind": [
+        2,
+        -2
+      ],
+      "slope": [
+        1,
+        1
       ]
     },
     {
@@ -200,6 +224,14 @@
         "rrrrrrrrrrrrrfffrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "wind": [
+        -3,
+        -1
+      ],
+      "slope": [
+        -1,
+        1
       ]
     },
     {
@@ -251,6 +283,14 @@
         "rrrffffrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "wind": [
+        2,
+        2
+      ],
+      "slope": [
+        1,
+        1
       ]
     },
     {
@@ -298,6 +338,14 @@
         "rrrrffffrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "wind": [
+        -2,
+        -1
+      ],
+      "slope": [
+        -1,
+        1
       ]
     },
     {
@@ -305,12 +353,12 @@
       "name": "Long Pour",
       "par": 5,
       "tee": [
-        3,
+        2,
         14
       ],
       "cup": [
-        15,
-        4
+        16,
+        3
       ],
       "fairwayRoute": [
         [
@@ -349,6 +397,14 @@
         "rrfffrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "wind": [
+        3,
+        -1
+      ],
+      "slope": [
+        1,
+        1
       ]
     },
     {
@@ -400,6 +456,14 @@
         "rrrrrrrrrrrrrfffrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "wind": [
+        -2,
+        2
+      ],
+      "slope": [
+        -1,
+        1
       ]
     },
     {
@@ -451,6 +515,14 @@
         "rrrffffrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr",
         "rrrrrrrrrrrrrrrrrrrr"
+      ],
+      "wind": [
+        1,
+        -3
+      ],
+      "slope": [
+        1,
+        1
       ]
     }
   ]
