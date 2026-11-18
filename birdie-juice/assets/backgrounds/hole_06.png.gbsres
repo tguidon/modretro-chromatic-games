@@ -1,0 +1,13 @@
+{
+  "_resourceType": "background",
+  "id": "c95b6f24-0f37-52d7-9a30-df19890d0a0c",
+  "name": "06 Island Lime",
+  "symbol": "bg_hole_06",
+  "tileColors": "0728+009+046+00d+04!003+01!002+04!00c+04!002+023+03!04!00c+04!00!01!023+03!04!00c+04!012+023+00!04!00c+048+00c+015+00e+016+00d+016+00d+016+00d+017+00d+016+00d+016+00f+014+00c+0728+",
+  "filename": "hole_06.png",
+  "width": 20,
+  "height": 18,
+  "imageWidth": 160,
+  "imageHeight": 144,
+  "autoColor": false
+}

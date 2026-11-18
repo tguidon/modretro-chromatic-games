@@ -1,0 +1,128 @@
+{
+  "_resourceType": "sprite",
+  "id": "101b6281-6493-534c-9048-989e0fd77998",
+  "name": "Golfer",
+  "symbol": "sprite_golfer",
+  "states": [
+    {
+      "id": "b9ef97f2-c798-547d-9c2e-5e7d9dd80b04",
+      "name": "",
+      "animationType": "fixed",
+      "flipLeft": false,
+      "animations": [
+        {
+          "id": "067dbf92-18a7-5d3c-adec-e7b828c6d393",
+          "frames": [
+            {
+              "id": "1b085227-ef36-5550-8600-e1503848df5c",
+              "tiles": [
+                {
+                  "id": "7afe58af-6031-5333-9c0f-1d73c7a8a5c5",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 0,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "4804e900-b112-5e6f-889d-a834e9e5c2e5",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 8,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "99978ffd-94c9-536c-9b7c-0eb7d34a6d18",
+          "frames": [
+            {
+              "id": "c04bcd59-25fe-516a-831d-4f931397fc21",
+              "tiles": []
+            }
+          ]
+        },
+        {
+          "id": "3172d534-a692-5367-b747-e5a05e775aee",
+          "frames": [
+            {
+              "id": "ba648d09-30a8-597e-9517-483e894754fe",
+              "tiles": []
+            }
+          ]
+        },
+        {
+          "id": "6e426afe-efe5-5553-a5c8-ef9085483a45",
+          "frames": [
+            {
+              "id": "5569966e-8ad1-55a8-8c39-2e6dbdaf9f91",
+              "tiles": []
+            }
+          ]
+        },
+        {
+          "id": "8b4a05c6-1ef6-5753-bd04-33d3fd86725f",
+          "frames": [
+            {
+              "id": "433f5acd-0f1e-5113-ad54-82277fc7880e",
+              "tiles": []
+            }
+          ]
+        },
+        {
+          "id": "ba9059a7-0374-5259-8c30-4feae95fcbb3",
+          "frames": [
+            {
+              "id": "c34922f1-6d8a-5885-b769-8a6380f5a6b6",
+              "tiles": []
+            }
+          ]
+        },
+        {
+          "id": "fa3e52d3-9923-5901-b6fa-6c51853a6a0e",
+          "frames": [
+            {
+              "id": "8c5900fa-c0f5-54fd-b951-5b0572e54335",
+              "tiles": []
+            }
+          ]
+        },
+        {
+          "id": "3074b4c3-6539-5125-853a-dc88e11ab31d",
+          "frames": [
+            {
+              "id": "3ff52566-7fb2-5648-ba18-33e41fc0fe78",
+              "tiles": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "numTiles": 4,
+  "canvasOriginX": 0,
+  "canvasOriginY": 0,
+  "canvasWidth": 16,
+  "canvasHeight": 16,
+  "boundsX": 6,
+  "boundsY": -2,
+  "boundsWidth": 4,
+  "boundsHeight": 4,
+  "animSpeed": 255,
+  "filename": "golfer.png",
+  "width": 16,
+  "height": 16
+}

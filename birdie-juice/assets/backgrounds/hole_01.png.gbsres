@@ -1,0 +1,13 @@
+{
+  "_resourceType": "background",
+  "id": "aaeafe51-8f2a-58bc-91d1-be65154c7775",
+  "name": "01 Morning Dew",
+  "symbol": "bg_hole_01",
+  "tileColors": "0728+00d+01!0011+01!023+00e+013+023+01!00c+014+023+008+042+002+017+009+042+00!016+032+00b+016+00e+015+00e+015+00f+015+00f+014+00f+015+00f+015+0010+013+00d+0728+",
+  "filename": "hole_01.png",
+  "width": 20,
+  "height": 18,
+  "imageWidth": 160,
+  "imageHeight": 144,
+  "autoColor": false
+}

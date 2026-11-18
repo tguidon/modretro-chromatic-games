@@ -1,0 +1,18 @@
+{
+  "_resourceType": "palette",
+  "id": "green",
+  "name": "Green",
+  "colors": [
+    "D2E19A",
+    "BAD57C",
+    "99BB60",
+    "426D49"
+  ],
+  "defaultName": "green",
+  "defaultColors": [
+    "D2E19A",
+    "BAD57C",
+    "99BB60",
+    "426D49"
+  ]
+}

@@ -1,0 +1,457 @@
+{
+  "name": "Birdie Juice",
+  "par": 36,
+  "holes": [
+    {
+      "hole": 1,
+      "name": "Morning Dew",
+      "par": 4,
+      "tee": [
+        5,
+        14
+      ],
+      "cup": [
+        13,
+        4
+      ],
+      "fairwayRoute": [
+        [
+          5,
+          14
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrfrrrrrr",
+        "rrrrrrrrrrrfgggrrrrr",
+        "rrrrrrrrrfffgggfrrrr",
+        "rrrrrrrrffffgggrrrrr",
+        "rrrwwrrfffffffrrrrrr",
+        "rrrwwrffffffssrrrrrr",
+        "rrrrrffffffrrrrrrrrr",
+        "rrrrrfffffrrrrrrrrrr",
+        "rrtrfffffrrrrrrrrrrr",
+        "rrrrfffffrrrrrrrrtrr",
+        "rrrrffffrrrrrrrrrrrr",
+        "rrrfffffrrrrrrrrrrrr",
+        "rrrfffffrrrrrrrrrrrr",
+        "rrrrfffrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    },
+    {
+      "hole": 2,
+      "name": "Short Squeeze",
+      "par": 3,
+      "tee": [
+        5,
+        14
+      ],
+      "cup": [
+        13,
+        5
+      ],
+      "fairwayRoute": [
+        [
+          5,
+          14
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          13,
+          5
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrfrrrtrr",
+        "rtrrrrrrrrrfgggrrrrr",
+        "rrrrwwwrrrffgggfrrrr",
+        "rrrrwwwrrfffgggrrrrr",
+        "rrrrrrrfffffssfrrrrr",
+        "rrrrrrrffffffrrrrrrr",
+        "rrrrrrffffffrrrrrrrr",
+        "rrtrrffffffrrrrrrrrr",
+        "rrrrrfffffrrrrrrrrrr",
+        "rrrrfffffrrrrrrrrrrr",
+        "rrrrfffffrrrrrrrrrrr",
+        "rrrfffffrrrrrrrrrrrr",
+        "rrrrfffrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    },
+    {
+      "hole": 3,
+      "name": "Dogleg Punch",
+      "par": 5,
+      "tee": [
+        4,
+        14
+      ],
+      "cup": [
+        15,
+        4
+      ],
+      "fairwayRoute": [
+        [
+          4,
+          14
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          11,
+          9
+        ],
+        [
+          15,
+          4
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrfrrrr",
+        "rrrrrrrrrrrrrfgggtrr",
+        "rtrrrrrrwwwrrfgggfrr",
+        "rrrrrrrrwwwrfsgggrrr",
+        "rrrrrrrrrrrffsfffrrr",
+        "rrrrffffffffffffrrrr",
+        "rrrffffffffffffrrrrr",
+        "rrffffffffffffrrrrrr",
+        "rrffffffffffssrrrrrr",
+        "rrffffffffffrrrrrtrr",
+        "rrfffffrrrrrrrrrrrrr",
+        "rrfffffrrrrrrrrrrrrr",
+        "rrfffffrrrrrrrrrrrrr",
+        "rrrfffrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    },
+    {
+      "hole": 4,
+      "name": "Sand Wedge",
+      "par": 4,
+      "tee": [
+        14,
+        14
+      ],
+      "cup": [
+        5,
+        4
+      ],
+      "fairwayRoute": [
+        [
+          14,
+          14
+        ],
+        [
+          12,
+          10
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrfrrrrrrrrrrrrrr",
+        "rrrrgggrrrrrrrrrrrrr",
+        "rrrfgggssrrrrrrrrrrr",
+        "rrrsgggfrrrrrrrrrrrr",
+        "rrrssffffrrrrrrrrrrr",
+        "rrrrfffffffrrrrrrrrr",
+        "rrrrrffffffffrrrrrrr",
+        "rrrrrrffssffffrrrrrr",
+        "rrtrrrrrfffffffrrrrr",
+        "rrrrrrrrrrfffffrrtrr",
+        "rrrrrrrrrrrfffffrrrr",
+        "rrrrrrrrrrrrffffrrrr",
+        "rrrrrrrrrrrrfffffrrr",
+        "rrrrrrrrrrrrrfffrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    },
+    {
+      "hole": 5,
+      "name": "Creekside",
+      "par": 4,
+      "tee": [
+        4,
+        14
+      ],
+      "cup": [
+        14,
+        4
+      ],
+      "fairwayRoute": [
+        [
+          4,
+          14
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          12,
+          7
+        ],
+        [
+          14,
+          4
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrfrrrrr",
+        "rrrrrrrrrrrrrgggrtrr",
+        "rtrrrrrrrrrrfgggfrrr",
+        "rrrrrrrrrrrffgggrrrr",
+        "rrrrrrrrrrffffssrrrr",
+        "rrrrrrrrrffffffrrrrr",
+        "rwwwwwwwfffffwwwwwrr",
+        "rrrrrrrfffffffrrrrrr",
+        "rrtrrrfffffffrrrrrrr",
+        "rrrrrfffffffrrrrrrrr",
+        "rrrrfffffffrrrrrrrrr",
+        "rrrffffffrrrrrrrrrrr",
+        "rrffffffrrrrrrrrrrrr",
+        "rrrffffrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    },
+    {
+      "hole": 6,
+      "name": "Island Lime",
+      "par": 3,
+      "tee": [
+        5,
+        14
+      ],
+      "cup": [
+        12,
+        5
+      ],
+      "fairwayRoute": [
+        [
+          5,
+          14
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          12,
+          5
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrwwwwwwrrrrr",
+        "rrrrrrrrwrrrfrrwrtrr",
+        "rtrrrrrrwrrgggswrrrr",
+        "rrrrrrrrwrfgggswrrrr",
+        "rrrrrrrrwffgggrwrrrr",
+        "rrrrrrrrwwwwwwwwrrrr",
+        "rrrrrrrrfffffrrrrrrr",
+        "rrrrrrrffffffrrrrrrr",
+        "rrrrrrffffffrrrrrrrr",
+        "rrrrrffffffrrrrrrtrr",
+        "rrrrfffffffrrrrrrrrr",
+        "rrrrffffffrrrrrrrrrr",
+        "rrrffffffrrrrrrrrrrr",
+        "rrrrffffrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    },
+    {
+      "hole": 7,
+      "name": "Long Pour",
+      "par": 5,
+      "tee": [
+        3,
+        14
+      ],
+      "cup": [
+        15,
+        4
+      ],
+      "fairwayRoute": [
+        [
+          3,
+          14
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          11,
+          8
+        ],
+        [
+          15,
+          4
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrfrrrr",
+        "rrrrrrrrrrrrrfgggrrr",
+        "rrrrrrrrrrrrffgggfrr",
+        "rrrrrrrrrrrfffgggrrr",
+        "rrrrrrrrrrffssfffrrr",
+        "rrrrrrrrffffffffrrrr",
+        "rrrssffffffffffrrrrr",
+        "rrrrffffffffffrrrrrr",
+        "rrtffffffwwwwwrrrrrr",
+        "rrrffffffwwwwwrrrtrr",
+        "rrfffffrrrrrrrrrrrrr",
+        "rrffffrrrrrrrrrrrrrr",
+        "rfffffrrrrrrrrrrrrrr",
+        "rrfffrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    },
+    {
+      "hole": 8,
+      "name": "Orchard Run",
+      "par": 4,
+      "tee": [
+        14,
+        14
+      ],
+      "cup": [
+        4,
+        4
+      ],
+      "fairwayRoute": [
+        [
+          14,
+          14
+        ],
+        [
+          11,
+          10
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrfrrrrrrrrrrrrrrr",
+        "rrrgggrrrrrrrrrrrtrr",
+        "rtfgggfrrrrrwwwwrrrr",
+        "rrrgggffrrrrwwwwrrrr",
+        "rrrffffffrrrwwwwrrrr",
+        "rrrrffffffrrrrrrrrrr",
+        "rrrrrfffffffrrrrrrrr",
+        "rrrrrrfffffffrrrrrrr",
+        "rrtrrrrssfffffrrrrrr",
+        "rrrrrrrrrffffffrrrrr",
+        "rrrrrrrrrrffffffrrrr",
+        "rrrrrrrrrrrfffffrrrr",
+        "rrrrrrrrrrrrfffffrrr",
+        "rrrrrrrrrrrrrfffrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    },
+    {
+      "hole": 9,
+      "name": "Last Call",
+      "par": 4,
+      "tee": [
+        4,
+        14
+      ],
+      "cup": [
+        13,
+        4
+      ],
+      "fairwayRoute": [
+        [
+          4,
+          14
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          13,
+          8
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "terrain": [
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrfrrrrrr",
+        "rrrrrrrrrrrrgggrrtrr",
+        "rtrrrrrrrrrfgggfrrrr",
+        "rrrrrrrrrrsfgggsrrrr",
+        "rrrrrrrrrrsffffsrrrr",
+        "rrrwwwwwrrrfffffrrrr",
+        "rrrwwwwwrfffffffrrrr",
+        "rrrrrrrrfffffffrrrrr",
+        "rrrrrrffffffffrrrrrr",
+        "rrrrrffffffffrrrrtrr",
+        "rrrrfffffffrrrrrrrrr",
+        "rrrffffffrrrrrrrrrrr",
+        "rrffffffrrrrrrrrrrrr",
+        "rrrffffrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr",
+        "rrrrrrrrrrrrrrrrrrrr"
+      ]
+    }
+  ]
+}

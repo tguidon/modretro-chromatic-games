@@ -1,0 +1,8 @@
+{
+  "_resourceType": "project",
+  "name": "Birdie Juice",
+  "author": "tguidon",
+  "notes": "Nine-hole golf. Par 36. Game rules: plugins/birdie-golf. Course source: course/holes.json.",
+  "_version": "4.2.0",
+  "_release": "10"
+}

@@ -1,0 +1,18 @@
+{
+  "_resourceType": "palette",
+  "id": "water",
+  "name": "Water",
+  "colors": [
+    "A3DAD0",
+    "7BBFC6",
+    "549AAB",
+    "365F79"
+  ],
+  "defaultName": "water",
+  "defaultColors": [
+    "A3DAD0",
+    "7BBFC6",
+    "549AAB",
+    "365F79"
+  ]
+}

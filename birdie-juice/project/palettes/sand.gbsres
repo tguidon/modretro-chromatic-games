@@ -1,0 +1,18 @@
+{
+  "_resourceType": "palette",
+  "id": "sand",
+  "name": "Sand",
+  "colors": [
+    "EED7A6",
+    "D4BA87",
+    "B79B6D",
+    "7B6B4B"
+  ],
+  "defaultName": "sand",
+  "defaultColors": [
+    "EED7A6",
+    "D4BA87",
+    "B79B6D",
+    "7B6B4B"
+  ]
+}

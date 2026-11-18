@@ -1,0 +1,11 @@
+{
+  "version": "4.3.0-e1",
+  "sceneTypes": [
+    {
+      "key": "GOLF",
+      "label": "Birdie Juice Golf",
+      "files": ["include/states/golf.h", "src/states/golf.c"],
+      "collisionTiles": []
+    }
+  ]
+}

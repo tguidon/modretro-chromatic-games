@@ -1,0 +1,18 @@
+{
+  "_resourceType": "palette",
+  "id": "fairway",
+  "name": "Fairway",
+  "colors": [
+    "A6CE70",
+    "8DBA5C",
+    "78A450",
+    "3B6341"
+  ],
+  "defaultName": "fairway",
+  "defaultColors": [
+    "A6CE70",
+    "8DBA5C",
+    "78A450",
+    "3B6341"
+  ]
+}

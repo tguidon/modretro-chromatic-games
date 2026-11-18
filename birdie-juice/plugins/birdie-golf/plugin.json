@@ -1,0 +1,10 @@
+{
+  "id": "birdie-juice-golf",
+  "name": "Birdie Juice Golf",
+  "type": "enginePlugin",
+  "version": "0.1.0",
+  "gbsVersion": "4.3.2",
+  "author": "tguidon",
+  "description": "Top-down golf, club selection, terrain and nine-hole scoring.",
+  "filename": "birdie-golf"
+}

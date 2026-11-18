@@ -1,0 +1,18 @@
+{
+  "_resourceType": "palette",
+  "id": "rough",
+  "name": "Rough",
+  "colors": [
+    "71974C",
+    "587E43",
+    "365D3C",
+    "193C35"
+  ],
+  "defaultName": "rough",
+  "defaultColors": [
+    "71974C",
+    "587E43",
+    "365D3C",
+    "193C35"
+  ]
+}

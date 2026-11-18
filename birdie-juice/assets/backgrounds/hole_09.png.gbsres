@@ -1,0 +1,13 @@
+{
+  "_resourceType": "background",
+  "id": "749141fe-c956-5153-b480-ea0c8369d6e5",
+  "name": "09 Last Call",
+  "symbol": "bg_hole_09",
+  "tileColors": "0728+00d+01!0012+023+0010+01!023+01!00e+03!01!023+03!00e+03!014+03!007+045+003+015+007+045+00!017+00c+017+00b+018+00b+018+00b+017+00c+016+00d+016+00f+014+00d+0728+",
+  "filename": "hole_09.png",
+  "width": 20,
+  "height": 18,
+  "imageWidth": 160,
+  "imageHeight": 144,
+  "autoColor": false
+}

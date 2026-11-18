@@ -1,0 +1,13 @@
+{
+  "_resourceType": "background",
+  "id": "7db73a65-5b60-5e87-8bff-f6756e87912b",
+  "name": "07 Long Pour",
+  "symbol": "bg_hole_07",
+  "tileColors": "0728+00f+01!0011+01!023+00f+012+023+01!00d+013+023+00d+012+032+013+00b+018+007+032+01a+009+01a+009+016+045+009+016+045+008+015+00f+014+00f+015+0010+013+00f+0728+",
+  "filename": "hole_07.png",
+  "width": 20,
+  "height": 18,
+  "imageWidth": 160,
+  "imageHeight": 144,
+  "autoColor": false
+}

@@ -1,0 +1,7 @@
+build/
+artifacts/
+captures/
+save-states/
+__pycache__/
+*.sav
+*.ram

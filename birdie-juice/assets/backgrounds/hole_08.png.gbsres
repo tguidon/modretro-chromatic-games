@@ -1,0 +1,13 @@
+{
+  "_resourceType": "background",
+  "id": "f1e8b19e-f813-55a7-8c93-a0d067102e8a",
+  "name": "08 Orchard Run",
+  "symbol": "bg_hole_08",
+  "tileColors": "0728+004+01!0012+023+0010+01!023+01!005+044+007+023+012+004+044+007+016+003+044+008+016+00f+017+00e+017+00e+032+015+00f+016+00f+016+00f+015+0010+015+0010+013+004+0728+",
+  "filename": "hole_08.png",
+  "width": 20,
+  "height": 18,
+  "imageWidth": 160,
+  "imageHeight": 144,
+  "autoColor": false
+}

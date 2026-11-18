@@ -4,6 +4,10 @@ A collection of games for my ModRetro Chromatic, built with the
 [ModRetro Chromatic Plugin](plugin://modretro-chromatic@openai-curated-remote).
 Each game lives in its own folder and remains editable in GB Studio.
 
+[Birdie Juice](birdie-juice/README.md) is a nine-hole, par-36 golf game.
+Its game README includes direct compiler commands and automated playtests.
+`setup-check/` contains the starter used to test the shared toolchain.
+
 ## Repository layout
 
 Use a short, lowercase, hyphenated folder name for each game at the repository root.
@@ -14,6 +18,7 @@ Keep the repository root for shared documentation and repository configuration.
 modretro-chromatic-games/
 ├── README.md
 ├── AGENTS.md
+├── birdie-juice/         # Nine-hole golf game
 ├── setup-check/          # Starter used to test the toolchain
 │   ├── project.gbsproj   # GB Studio project descriptor
 │   ├── project/          # Native .gbsres resources
