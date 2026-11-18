@@ -105,8 +105,21 @@ flashed the exact previously failing native Birdie ROM successfully:
 
 The earlier installation failure did not reproduce. This does not identify its
 cause or prove that the comparison sequence repaired anything. No production
-ROM patch is justified by these install results. Physical Birdie boot/gameplay
-confirmation is still pending; its exact-image emulator regression already
-passed all 17 checks across 15,901 frames, including a full nine-hole round.
+ROM patch is justified by these install results. The user then confirmed Birdie
+booted and they played the first hole on the physical Chromatic. Its exact-image
+emulator regression passed all 17 checks across 15,901 frames, including a full
+nine-hole round; that complete round has not been verified on physical hardware.
 Detailed operation and user-report evidence is retained in
 `artifacts/button-comparison/` and `artifacts/rom-audit/`.
+
+Comparing the original failed native write with the successful write through the
+public operation records found identical vendor command arguments (including
+ROM path and expected hash), executable path, CLI version 1.2.1, target
+darwin-arm64, plugin session, and USB bus/port/player enumeration. The failed
+write read 0xFF instead of 0x00 at offset 0x232; the successful write verified.
+Between those attempts, diagnostic writes and user power-cycles changed the
+cartridge contents and device history. That supports investigating a
+state-dependent or intermittent write/readback condition, but does not identify
+its cause or establish that the diagnostic sequence repaired anything. Preserve
+the working installation. The detailed comparison is retained as
+`artifacts/button-comparison/failed-versus-successful-write.json`.
