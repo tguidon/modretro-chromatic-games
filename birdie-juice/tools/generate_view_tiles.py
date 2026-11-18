@@ -7,7 +7,11 @@ for terrain in range(6):
   for y in range(8):
    lo=hi=0
    for x in range(8):
-    inside=mask & (1<<((y//4)*2+x//4))
+    def inside_at(px,py):
+     weights=[(7-px)*(7-py),px*(7-py),(7-px)*py,px*py]
+     return sum(w for i,w in enumerate(weights) if mask&(1<<i))>=24
+    inside=inside_at(x,y)
+    edge=inside and any(not inside_at(max(0,min(7,x+dx)),max(0,min(7,y+dy))) for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)])
     v=(0 if terrain in (1,2,3) else 1) if inside else (2 if terrain in (1,4) else 3)
     if inside:
      if terrain==0 and (x,y) in [(1,2),(5,6)]:v=2
@@ -16,6 +20,8 @@ for terrain in range(6):
      if terrain==3 and (x,y) in [(2,5),(6,1)]:v=1
      if terrain==4 and y==3 and x in (2,3,4):v=0
      if terrain==5:v=3 if y>5 or abs(x-4)>y//2 else 1
+    if edge and terrain in (1,2,3):v=1
+    if edge and terrain==4:v=3
     lo=lo*2+(v&1);hi=hi*2+(v>>1)
    data.extend((lo,hi))
 out.write_text('#pragma bank 255\n#include "states/golf.h"\nstatic const UBYTE tiles[]={'+','.join(map(str,data))+'};\nvoid bj_view_tiles(void) BANKED {VBK_REG=1;set_bkg_data(0,96,tiles);VBK_REG=0;}\n')
@@ -34,3 +40,17 @@ for phase in range(4):
    flow.extend((lo,hi))
 with out.open('a') as f:
  f.write('#include "game_time.h"\nstatic const UBYTE flow[]={'+','.join(map(str,flow))+'};\nvoid bj_view_grid(void) BANKED {VBK_REG=1;set_bkg_data(96,4,flow+((game_time>>4)&3)*64);VBK_REG=0;}\n')
+
+water=[]
+for phase in range(4):
+ for offset in range(4):
+  for y in range(8):
+   lo=hi=0
+   for x in range(8):
+    v=1
+    if y in (2,6) and (x+phase+offset*2+(y//4))%8 in (1,2,3):v=0
+    if y==4 and (x-phase-offset)%8 in (5,6):v=3
+    lo=lo*2+(v&1);hi=hi*2+(v>>1)
+   water.extend((lo,hi))
+with out.open('a') as f:
+ f.write('static const UBYTE water[]={'+','.join(map(str,water))+'};\nvoid bj_water_tiles(void) BANKED {VBK_REG=1;set_bkg_data(100,4,water+((game_time>>4)&3)*64);VBK_REG=0;}\n')

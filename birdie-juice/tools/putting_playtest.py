@@ -7,7 +7,7 @@ def green(label):
     for _ in range(2):
         c,p,a=plan(g.state(),course[0]);g.aim(c,a);g.swing(p)
     g.until(lambda:not g.byte('view_busy'));g.tick(12)
-    assert g.byte('club')==4 and g.byte('view_zoom')==2 and g.byte('view_active')==1
+    assert g.byte('club')==4 and g.byte('view_zoom')==4 and g.byte('view_active')==1
     return g
 
 g=green('putt-controls');g.snap('putting-read')
@@ -34,9 +34,10 @@ for name,angle,power in [('uphill',48,50),('downhill',16,50),('cross-slope',56,8
     curve=max(abs(dx*(y-y0)-dy*(x-x0))/max(1,math.hypot(dx,dy))/16 for x,y,z in path)
     assert r['maxHeight']==0
     results[name]={'distancePixels':distance,'curvePixels':curve,'frames':len(path),'strokes':r['result']['strokes'],'mode':r['result']['mode']}
+    if name=='cross-slope':assert len(set(r['viewOrigins']))>1,'Camera must track the long roll'
     if name=='firm-through-cup':assert r['result']['mode']==0,'Fast putt should run past the cup'
     g.snap('putting-'+name);g.close()
 assert results['downhill']['distancePixels']>results['uphill']['distancePixels']+1,results
 assert results['cross-slope']['curvePixels']>.4,results
-report={'result':'pass','romSha256':hashlib.sha256(ROM.read_bytes()).hexdigest(),'visibleObjects':visible,'checks':['2x green view','256-direction fine aiming','1 percent power adjustment','short/long range toggle','cancel preserves stroke and position','visible ball/cup/guide sprites over viewport','downhill rolls farther','cross-slope break','firm putt runs past cup','putts stay on ground'],'shots':results}
+report={'result':'pass','romSha256':hashlib.sha256(ROM.read_bytes()).hexdigest(),'visibleObjects':visible,'checks':['adaptive 4x close-putt view','256-direction fine aiming','1 percent power adjustment','short/long range toggle','cancel preserves stroke and position','visible ball/cup/guide sprites over viewport','downhill rolls farther','cross-slope break','firm putt runs past cup','putts stay on ground','camera tracks rolling putts'],'shots':results}
 (OUT/'putting-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

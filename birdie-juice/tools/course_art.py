@@ -36,13 +36,13 @@ def draw_course(h):
                         if pal==1:
                             # Mown bands follow the diagonal rather than the tile grid.
                             v=1 if ((x+y//3)//6)%2 else 0
-                            if edge:v=2
+                            if edge:v=2 if at(x,y+1)!=c else 0
                     elif c==2:
                         v=0 if pal==2 else 2
-                        if pal==2 and edge:v=1
+                        if pal==2 and (edge or at(x,y+2)!=c):v=1
                         if pal==2 and (x%8,y%8)==(2,2):v=1
                     elif c==3:
-                        v=1 if edge or (x%8,y%8)==(3,5) else 0
+                        v=1 if (edge and at(x,y-1)==3) or (x%8,y%8)==(3,5) else 0
                     else:
                         v=3 if edge else 1
                         if not edge and (y%6==2 and x%13 in (3,4,5,6)):v=0
@@ -64,7 +64,7 @@ def draw_course(h):
                 d.polygon([(cx,by-7),(cx+3,by-2),(cx-3,by-2)],fill=0)
                 d.line((cx,by-6,cx-1,by-3),fill=255);d.line((cx,by-2,cx,by),fill=0)
                 continue
-            d.ellipse((cx-4,by-2,cx+6,by),fill=85)
+            d.ellipse((cx-3,by-2,cx+6,by+1),fill=85)
             d.rectangle((cx-1,by-5,cx+1,by-1),fill=0)
             for top,width in [(by-17,4),(by-13,5),(by-9,6)]:
                 d.polygon([(cx,top),(cx+width,top+7),(cx-width,top+7)],fill=0)

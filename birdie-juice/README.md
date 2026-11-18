@@ -130,7 +130,7 @@ banked `birdie_terrain_*.c` files pack two surface cells per byte for the ROM.
 `tools/generate_course.py` regenerates course assets, native scene resources, and course lookup data from that file.
 It requires Pillow and replaces those generated files, so preserve editor changes before running it.
 `tools/course_art.py` draws the original course tiles and palettes.
-`tools/generate_shot_art.py` produces the mountain panorama and four swing poses;
+`tools/generate_shot_art.py` produces the mountain panorama and six swing poses;
 run it after changing shot artwork. Its editable source previews live in `course/art/`.
 
 Edit the game state machine in `plugins/birdie-golf/engine/src/states/golf.c`,
@@ -149,7 +149,7 @@ The included `LICENSE` preserves the native project's upstream notice.
 
 ## Putting close-up
 
-Selecting the putter opens a 2× terrain view with a visible cup and a dotted
+Selecting the putter opens a 2× terrain view, zooming to 4× for close putts, with a visible cup and a dotted
 straight-line aim guide. Flowing chevrons show the downhill direction. The HUD
 shows distance in feet and the modeled elevation change to the cup. Left/right
 has 256 headings rather than the other clubs' 64; up/down changes power by 1%.
@@ -167,3 +167,14 @@ Run `tools/putting_playtest.py` with the same Python and `--rom`, `--symbols`,
 and `--output` options as the main regression for focused putting checks. It
 reaches the green through actual shots, checks controls and object visibility,
 and compares uphill, downhill, cross-slope, and firm-through-cup putts.
+
+## Tracking and course polish
+
+Air shots switch to a ball-following terrain viewport, with a separate ground
+shadow and turf, sand, and splash effects. Swing poses include anticipation,
+backswing, contact, and follow-through, with different clean/mishit tones.
+Water ripples animate on the map and in close-ups. Fairway rims, green collars,
+bunker lips, and conifer shadows provide depth within the four-color palettes.
+The largest overview uses 125 of its 128 reserved course tiles. Close-up terrain
+uses 96 tiles in CGB background bank 1, plus four slope and four water tiles;
+the meter and swing pose retain their separate slots. The final ROM is 256 KiB.

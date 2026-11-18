@@ -42,9 +42,13 @@ engine=ROOT/'plugins/birdie-golf/engine'
 fontstr=','.join(str(x) for x in font)
 (engine/'src/core/birdie_font.c').write_text('#pragma bank 255\n#include <gbdk/platform.h>\n#include "states/golf.h"\nstatic const UBYTE bj_font[]={'+fontstr+'};\nvoid bj_load_font(void) BANKED { VBK_REG=0; set_bkg_data(128,64,bj_font); }\n')
 hole_c=[]
+water_cells=[]
+water_counts=[]
 for i,h in enumerate(course['holes']):
     n=i+1
     image,attrs,terrain=draw_course(h)
+    cells=[(x,y) for y in range(2,16) for x in range(20) if all(terrain.getpixel((px,py))==4 for py in range(y*8,y*8+8,2) for px in range(x*8,x*8+8,2))]
+    water_counts.append(len(cells));water_cells.extend(v for cell in cells for v in cell)
     tx,ty=h['tee'];hx,hy=h['cup']
     assert terrain.getpixel((tx*8+4,ty*8+4))==1, (n,'tee must be fairway')
     assert terrain.getpixel((hx*8+4,hy*8+4))==2, (n,'cup must be on green')
@@ -71,6 +75,10 @@ terrain_switch=''.join(f'case {n-1}:return bj_terrain_{n}(cell);' for n in range
 
 with (engine/'src/core/birdie_course.c').open('a') as file:
     file.write('void bj_terrain_row(UBYTE hole,INT16 y,UBYTE *dest) BANKED {UBYTE row;if(y<16||y>=128){memset(dest,0,40);return;}row=(y-16)>>1;switch(hole){'+''.join(f'case {n-1}:bj_row_{n}(row,dest);break;' for n in range(1,10))+'}}\n')
+
+offsets=[];offset=0
+for count in water_counts:offsets.append(offset);offset+=count*2
+(engine/'src/core/birdie_water.c').write_text('#pragma bank 255\n#include "states/golf.h"\nstatic const UBYTE cells[]={'+','.join(map(str,water_cells))+'};\nstatic const UWORD offsets[]={'+','.join(map(str,offsets))+'};\nstatic const UBYTE counts[]={'+','.join(map(str,water_counts))+'};\nvoid bj_water_init(void) BANKED {UBYTE i,x,y,tile,attr=12;UWORD p=offsets[bj_hole];for(i=0;i<counts[bj_hole];i++){x=cells[p++];y=cells[p++];tile=100+((x+y)&3);VBK_REG=0;set_bkg_tiles(x,y,1,1,&tile);VBK_REG=1;set_bkg_tiles(x,y,1,1,&attr);}VBK_REG=0;bj_water_tiles();}\n')
 
 # Transparent green is GB Studio's native sprite key. The other colors map to sprite indices 1..3.
 for kind in ['ball','aim','golfer','flag','shadow']:

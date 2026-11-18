@@ -63,7 +63,7 @@ static void bj_place_actors(UBYTE height) {
         SET_FLAG(actors[4].flags,ACTOR_FLAG_HIDDEN);
         return;
     }
-    actors[3].pos.x=(bj_course.cup_x-8)*32;actors[3].pos.y=(bj_course.cup_y-3)*32;
+    actors[3].pos.x=(bj_course.cup_x-8)*32;actors[3].pos.y=bj_course.cup_y*32;
     actor_set_frame_offset(&PLAYER,bj_landing && bj_result==BJ_SUNK?(bj_landing>16?0:bj_landing>8?1:2):0);
     SET_FLAG(actors[4].flags,ACTOR_FLAG_HIDDEN);
     CLR_FLAG(actors[2].flags,ACTOR_FLAG_HIDDEN);
@@ -112,7 +112,7 @@ static void bj_place_actors(UBYTE height) {
         for(i=0;i<5;i++) {
             mx=((INT16)(actors[i].pos.x>>5)+8-bj_view_x)*bj_view_zoom-8;
             my=((INT16)(actors[i].pos.y>>5)-bj_view_y)*bj_view_zoom+16;
-            if(mx<0 || mx>144 || my<16 || my>102)SET_FLAG(actors[i].flags,ACTOR_FLAG_HIDDEN);
+            if(mx<0 || mx>144 || my<24 || my>102)SET_FLAG(actors[i].flags,ACTOR_FLAG_HIDDEN);
             else {actors[i].pos.x=mx*32;actors[i].pos.y=my*32;}
         }
     }
@@ -185,9 +185,9 @@ void golf_init(void) BANKED {
     bj_mode=bj_hole?BJ_AIM:BJ_TITLE;
     bj_meter=0;bj_accuracy=0;bj_z=0;bj_wind_x=bj_course.wind_x;bj_wind_y=bj_course.wind_y;
     camera_offset_x=0;camera_offset_y=0;camera_deadzone_x=0;camera_deadzone_y=0;
-    bj_load_font();bj_auto_aim();bj_predict();
+    bj_load_font();bj_water_init();bj_auto_aim();bj_predict();
     actors[3].pos.x=(bj_course.cup_x-8)*32;
-    actors[3].pos.y=(bj_course.cup_y-3)*32;
+    actors[3].pos.y=bj_course.cup_y*32;
     bj_place_actors(0);
     bj_close_panel();
     if(bj_mode==BJ_TITLE)bj_draw_panel();
@@ -196,7 +196,10 @@ void golf_update(void) BANKED {
     UBYTE pressed=joy_pressed, height=0;
     if(bj_wait && bj_wait!=255)bj_wait--;
     if(bj_fx)bj_fx--;
-    if(bj_view_active && bj_view_zoom==2 && !(game_time&15))bj_view_grid();
+    if(!(game_time&15)) {
+        if(bj_view_active && bj_view_zoom>=2)bj_view_grid();
+        if(bj_mode==BJ_AIM || (bj_view_active && bj_mode==BJ_FLIGHT))bj_water_tiles();
+    }
     if(bj_hud_tick<2) {bj_hud_tick++;bj_draw_hud();}
     if(bj_mode==BJ_TITLE) {
         if(!bj_wait && (pressed&J_A)) {bj_mode=BJ_AIM;bj_close_panel();bj_sound(180);bj_draw_hud();}
@@ -246,7 +249,7 @@ void golf_update(void) BANKED {
                 if(bj_result==BJ_SUNK) {bj_x=(INT16)bj_course.cup_x<<4;bj_y=(INT16)bj_course.cup_y<<4;bj_z=0;bj_notice=7;bj_sound(240);if(bj_club==4)bj_putt_hud();}
             }
         }
-        if(bj_club!=4)bj_view_follow();
+        bj_view_follow();
         if(bj_lip)bj_putt_hud();
         if(bj_bounces!=bounce)bj_draw_hud();
         height=(UBYTE)(bj_z>>4);

@@ -73,14 +73,15 @@ class Game:
         self.press('a');assert self.byte('mode')==8
         if capture:self.snap('swing-impact')
         self.until(lambda:self.byte('mode')==1)
-        max_z=0;positions=[]
+        max_z=0;positions=[];view_origins=[]
         while self.byte('mode')==1:
             max_z=max(max_z,self.word('z'));positions.append((self.word('x'),self.word('y'),self.word('z')))
+            view_origins.append((self.word('view_x'),self.word('view_y')))
             if capture and len(positions) in [12,24,40,58]:self.snap('flight-'+str(len(positions)))
             self.tick(1)
             assert len(positions)<500
         self.tick(12)  # Let the settled HUD finish its VRAM writes before the next input.
-        return {'maxHeight':max_z/16,'positions':positions,'result':self.state()}
+        return {'maxHeight':max_z/16,'positions':positions,'viewOrigins':view_origins,'result':self.state()}
     def close(self):
         (OUT/(self.label+'-inputs.json')).write_text(json.dumps({'romSha256':hashlib.sha256(ROM.read_bytes()).hexdigest(),'frames':self.frames,'actions':self.actions},indent=2)+'\n')
         self.p.stop(save=False);completed_frames.append(self.frames)

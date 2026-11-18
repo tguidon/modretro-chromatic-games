@@ -20,6 +20,8 @@ enum { BJ_MOVING, BJ_STOPPED, BJ_SPLASH, BJ_SUNK };
 extern INT16 bj_target_x, bj_target_y;
 extern UBYTE bj_spread,bj_fine,bj_putt_long,bj_lip;
 void bj_view_grid(void) BANKED;
+void bj_water_tiles(void) BANKED;
+void bj_water_init(void) BANKED;
 void bj_putt_hud(void) BANKED;
 void bj_predict(void) BANKED;
 UBYTE bj_carry(void) BANKED;

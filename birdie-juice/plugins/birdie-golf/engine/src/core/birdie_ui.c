@@ -33,10 +33,10 @@ void bj_draw_hud(void) BANKED {
     UWORD yards;
     UBYTE lie=bj_terrain(bj_hole,(UBYTE)(bj_x>>4),(UBYTE)(bj_y>>4));
     if(bj_mode==BJ_AIM) {
-        if(bj_club==4 && (!bj_view_active || bj_view_zoom!=2)) {
+        if(bj_club==4 && (!bj_view_active || bj_view_zoom<2)) {
             INT16 cx=((bj_x>>4)+bj_course.cup_x)/2,cy=((bj_y>>4)+bj_course.cup_y)/2;
             if(dx>30 || dx< -30 || dy>30 || dy< -30) {cx=bj_x>>4;cy=bj_y>>4;}
-            bj_view_open(2,cx,cy+8);
+            bj_view_open(dx>=-12 && dx<=12 && dy>=-12 && dy<=12?4:2,cx,cy+8);
         } else if(bj_club!=4 && bj_view_active)bj_view_close();
     }
     bj_predict();
@@ -67,7 +67,6 @@ void bj_putt_hud(void) BANKED {
     INT16 dx=(bj_course.cup_x-(bj_x>>4)),dy=(bj_course.cup_y-(bj_y>>4));
     INT16 rise=-(dx*bj_course.slope_x+dy*bj_course.slope_y);
     UWORD feet;
-    if(dx<0)dx=-dx;if(dy<0)dy=-dy;
     feet=putt_feet();
     bj_blank();bj_put(0,"TO CUP ");bj_num(7,feet,3);bj_put(10,"FT");bj_put(13,bj_putt_long?"LONG":"SHORT");bj_text(0,bj_line,1);
     bj_blank();bj_put(0,rise>0?"UPHILL ":rise<0?"DOWNHILL ":"LEVEL ");
