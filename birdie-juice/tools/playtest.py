@@ -4,19 +4,26 @@ Uses timing feedback from the meter, not memory writes or teleports. Shot planni
 is deliberately approximate, so this checks the playable loop rather than proving
 that a duplicate physics implementation agrees with itself.
 """
-import hashlib,json,math,re
+import argparse,hashlib,json,math,re
 from pathlib import Path
 from pyboy import PyBoy
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[1]
-ROM=ROOT/'build/birdie-juice.gbc'
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--rom',type=Path,help='Exact ROM to test; requires matching --symbols')
+parser.add_argument('--symbols',type=Path,help='Matching .sym or .noi file')
+parser.add_argument('--output',type=Path,default=ROOT/'artifacts/playtests/regression')
+args=parser.parse_args()
+if args.rom and not args.symbols:parser.error('--rom requires matching --symbols')
+ROM=args.rom.resolve() if args.rom else ROOT/'build/birdie-juice.gbc'
 NOI=ROOT/'build/birdie-juice.gbc.debug/symbols.noi'
 SYM=ROOT/'build/birdie-juice.sym'
-OUT=ROOT/'artifacts/playtests/regression';OUT.mkdir(parents=True,exist_ok=True)
+OUT=args.output.resolve();OUT.mkdir(parents=True,exist_ok=True)
+completed_frames=[]
 course=json.loads((ROOT/'course/holes.json').read_text())['holes']
 terrain_masks=[Image.open(ROOT/f'course/art/hole_{n:02}_terrain.png') for n in range(1,10)]
 symbols={}
-source=NOI if NOI.exists() and NOI.stat().st_mtime>=ROM.stat().st_mtime-2 else SYM
+source=args.symbols or (NOI if NOI.exists() and NOI.stat().st_mtime>=ROM.stat().st_mtime-2 else SYM)
 for line in source.read_text().splitlines():
     m=re.match(r'DEF (_bj_\w+) 0x([0-9A-Fa-f]+)$',line)
     if m and int(m[2],16)>=0xc000:symbols[m[1]]=int(m[2],16)
@@ -70,7 +77,7 @@ class Game:
         return {'maxHeight':max_z/16,'positions':positions,'result':self.state()}
     def close(self):
         (OUT/(self.label+'-inputs.json')).write_text(json.dumps({'romSha256':hashlib.sha256(ROM.read_bytes()).hexdigest(),'frames':self.frames,'actions':self.actions},indent=2)+'\n')
-        self.p.stop(save=False)
+        self.p.stop(save=False);completed_frames.append(self.frames)
 
 def terrain(h,x,y):
     if not (0<=x<160 and 16<=y<128):return 'w'
@@ -172,5 +179,19 @@ if __name__=='__main__':
     assert s['notice']==2 and s['strokes']==1,s
     assert math.hypot(s['x']-36,s['y']-116)<40,s
     g.snap('tree-deflection');g.close();checks+=['dogleg grove deflects low driver without an extra penalty']
-    report={'result':'pass','romSha256':hashlib.sha256(ROM.read_bytes()).hexdigest(),'scores':scores,'total':sum(scores),'par':36,'frames':frames,'driveMaxHeight':full['maxHeight'],'maxPuttCurvePixels':max(breaks),'checks':checks}
+    # Actual swing power need not be a multiple of five. D-pad changes must clamp.
+    g=Game('power-upper-bound');g.start();g.swing(100);assert g.byte('power')==98
+    g.press('up');assert g.byte('power')==100,g.state()
+    g.press('up');assert g.byte('power')==100
+    old=g.state();g.press('a');g.tick(220);assert g.byte('mode')==6
+    g.snap('maximum-power-meter');g.press('b')
+    assert all(g.state()[k]==v for k,v in old.items() if k!='accuracy'),g.state();g.close()
+    g=Game('power-lower-bound');g.start();g.swing(10);assert g.byte('power')==8
+    g.press('down');assert g.byte('power')==5,g.state()
+    g.press('down');assert g.byte('power')==5
+    old=g.state();g.press('a');g.tick(220);assert g.byte('mode')==6
+    g.snap('minimum-power-meter');g.press('b')
+    assert all(g.state()[k]==v for k,v in old.items() if k!='accuracy'),g.state();g.close()
+    checks+=['target power stays within 5–100 percent after timed swings','meter cycles and cancellation work at both power limits']
+    report={'result':'pass','romPath':str(ROM),'romSha256':hashlib.sha256(ROM.read_bytes()).hexdigest(),'scores':scores,'total':sum(scores),'par':36,'frames':frames,'totalTestFrames':sum(completed_frames),'driveMaxHeight':full['maxHeight'],'maxPuttCurvePixels':max(breaks),'checks':checks}
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

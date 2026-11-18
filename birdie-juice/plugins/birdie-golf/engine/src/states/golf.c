@@ -213,8 +213,9 @@ void golf_update(void) BANKED {
             if(!bj_repeat) {
                 if(joy&J_RIGHT)bj_angle=(bj_angle+1)&63;
                 else if(joy&J_LEFT)bj_angle=(bj_angle+63)&63;
-                if((joy&J_UP) && bj_power<100)bj_power+=5;
-                else if((joy&J_DOWN) && bj_power>5)bj_power-=5;
+                // Timed swings leave powers between five-percent steps.
+                if((joy&J_UP) && bj_power<100)bj_power=bj_power>95?100:bj_power+5;
+                else if((joy&J_DOWN) && bj_power>5)bj_power=bj_power<10?5:bj_power-5;
                 if(joy&(J_RIGHT|J_LEFT|J_UP|J_DOWN)) {bj_notice=0;bj_repeat=6;bj_draw_hud();}
             } else bj_repeat--;
         }

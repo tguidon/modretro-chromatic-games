@@ -53,6 +53,7 @@ void bj_shot_meter(void) BANKED {
     if(meter<0)meter=0;if(meter>100)meter=100;
     pixel=(UWORD)meter*127/100;pos=pixel>>3;
     target=(UWORD)(bj_mode==BJ_POWER?bj_target_power:10)*127/800;
+    if(target>15)target=15;
     for(i=0;i<16;i++) {tiles[i]=109;attrs[i]=11;}
     tiles[target]=111;attrs[target]=10;tiles[pos]=110;attrs[pos]=15;
     mask=128>>(pixel&7);

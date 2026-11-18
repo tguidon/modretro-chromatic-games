@@ -103,6 +103,16 @@ Screenshots, exact input journals, and `report.json` go into
 `artifacts/playtests/regression/`. Plugin builds should request debug artifacts;
 direct builds produce the `.sym` file used as a fallback.
 
+To test another exact export, supply its matching build symbols and a separate
+evidence directory, for example after `node tools/build.mjs all`:
+
+```sh
+python3 tools/playtest.py --rom build/web/rom/birdie-juice.gbc --symbols build/birdie-juice.sym --output artifacts/playtests/web
+```
+
+Power-limit checks also cover D-pad adjustments after a timed swing, ensuring
+the target stays between 5% and 100% and the meter can be cancelled at either limit.
+
 ## Source files
 
 `project/` contains the native scenes, actors, settings, and palettes.
