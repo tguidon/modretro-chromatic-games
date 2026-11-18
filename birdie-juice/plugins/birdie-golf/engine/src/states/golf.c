@@ -120,12 +120,12 @@ static void bj_swing(void) {
     bj_physics_start();
     bj_mode=BJ_FLIGHT;bj_strokes++;bj_total++;
     bj_notice=(bj_accuracy>=-3 && bj_accuracy<=3)?4:5;
-    bj_close_panel();bj_sound(190);bj_draw_hud();
+    bj_close_panel();bj_sound(bj_notice==4?220:100);bj_draw_hud();
 }
 static void bj_lock_accuracy(void) {
     bj_accuracy=bj_meter-10;
     bj_mode=BJ_SWING;bj_swing_tick=0;
-    bj_shot_pose(2);bj_shot_meter();bj_sound(210);
+    bj_shot_pose(1);bj_shot_meter();
 }
 static void bj_next(void) {
     // The aim actor owns an ordinary editable GB Studio scene-transition event.
@@ -181,6 +181,9 @@ void golf_update(void) BANKED {
         } else {
             if(bj_meter_back) {bj_meter-=2;if(bj_meter<=0)bj_meter_back=0;}
             else {bj_meter+=2;if(bj_meter>=100)bj_meter_back=1;}
+            if(bj_meter==24)bj_shot_pose(4);
+            if(bj_meter==50)bj_shot_pose(5);
+            if(bj_meter==76)bj_shot_pose(1);
             bj_shot_meter();
         }
     } else if(bj_mode==BJ_ACCURACY) {
@@ -188,8 +191,10 @@ void golf_update(void) BANKED {
         else {bj_meter-=2;bj_shot_meter();}
     } else if(bj_mode==BJ_SWING) {
         bj_swing_tick++;
-        if(bj_swing_tick==8)bj_shot_pose(3);
-        if(bj_swing_tick>=22)bj_swing();
+        if(bj_swing_tick==4)bj_shot_pose(4);
+        if(bj_swing_tick==8) {bj_shot_pose(2);bj_sound(bj_accuracy>=-3 && bj_accuracy<=3?235:90);}
+        if(bj_swing_tick==16)bj_shot_pose(3);
+        if(bj_swing_tick>=30)bj_swing();
     } else if(bj_mode==BJ_FLIGHT) {
         UBYTE result=bj_physics_step();
         height=(UBYTE)(bj_z>>4);

@@ -55,7 +55,7 @@ for t in tiles(im):
 assert len(unique)<=109,len(unique)
 # Four deliberate poses, rendered into a 32x32 reserved patch at (32,72).
 poses=[]
-for pose in range(4):
+for pose in range(6):
     p=Image.new('L',(32,32),0);a=ImageDraw.Draw(p)
     a.ellipse((5,28,25,31),fill=3)
     a.polygon([(10,20),(16,20),(14,28),(9,28)],fill=3)
@@ -66,17 +66,19 @@ for pose in range(4):
     a.rectangle((12,5,19,11),fill=3);a.rectangle((14,6,20,10),fill=1)
     a.point((19,7),fill=3);a.line((17,11,19,11),fill=3)
     a.polygon([(10,5),(12,2),(18,2),(21,5)],fill=2);a.line((10,5,23,5),fill=3)
-    arms=[[(17,14),(21,19),(25,21)],[(17,14),(13,9),(7,5)],[(17,14),(24,11),(29,4)],[(17,14),(15,8),(24,3)]][pose]
+    arms=[[(17,14),(21,19),(25,21)],[(17,14),(13,9),(7,5)],[(17,14),(24,11),(29,4)],[(17,14),(15,8),(24,3)],[(17,14),(21,17),(27,22)],[(17,14),(15,11),(9,8)]][pose]
     a.line(arms,fill=3,width=3);a.line(arms,fill=1)
     end=arms[-1]
-    club=[(30,28),(3,0),(29,1),(30,8)][pose]
+    club=[(30,28),(3,0),(29,1),(30,8),(30,27),(3,3)][pose]
     a.line((end,club),fill=3);a.rectangle((max(0,club[0]-3),club[1],club[0],min(31,club[1]+2)),fill=1)
-    if pose<2:a.rectangle((29,28,30,29),fill=1)
+    if pose in (0,1,4,5):a.rectangle((29,28,30,29),fill=1)
+    if pose==2:
+        a.line((25,25,31,31),fill=1);a.line((25,31,31,25),fill=1);a.point((27,24),fill=1)
     poses.append(p)
 # Retain source sheets for edits and review; these are not standalone GB Studio backgrounds.
 art=ROOT/'course/art';art.mkdir(exist_ok=True)
 im.point(lambda v: [255,170,85,0][v%4]).convert('RGB').save(art/'shot-panorama.png')
-sheet=Image.new('L',(128,32))
+sheet=Image.new('L',(192,32))
 for i,p in enumerate(poses):sheet.paste(p,(i*32,0))
 sheet.point(lambda v: [255,170,85,0][v%4]).convert('RGB').save(art/'swing-poses.png')
 def array(name, data):return 'static const UBYTE '+name+'[]={'+','.join(map(str,data))+'};\n'
@@ -87,7 +89,7 @@ code+='''void bj_shot_pose(UBYTE pose) BANKED {
     static const UBYTE map[16]={112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127};
     static const UBYTE attrs[16]={13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13};
     VBK_REG=1;
-    switch(pose) {case 0:set_bkg_data(112,16,pose_0);break;case 1:set_bkg_data(112,16,pose_1);break;case 2:set_bkg_data(112,16,pose_2);break;default:set_bkg_data(112,16,pose_3);}
+    switch(pose) {case 0:set_bkg_data(112,16,pose_0);break;case 1:set_bkg_data(112,16,pose_1);break;case 2:set_bkg_data(112,16,pose_2);break;case 4:set_bkg_data(112,16,pose_4);break;case 5:set_bkg_data(112,16,pose_5);break;default:set_bkg_data(112,16,pose_3);}
     set_win_tiles(4,9,4,4,attrs);VBK_REG=0;set_win_tiles(4,9,4,4,map);
 }
 void bj_shot_art(void) BANKED {

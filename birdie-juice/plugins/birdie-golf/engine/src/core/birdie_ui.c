@@ -42,7 +42,7 @@ void bj_draw_hud(void) BANKED {
     if(bj_notice==1)bj_put(0,"WATER +1 / DROP BALL");
     else if(bj_notice==2)bj_put(0,"TREES / TRY A WEDGE");
     else if(bj_notice==4)bj_put(0,"NICE SHOT!");
-    else if(bj_notice==5)bj_put(0,"OFF CENTER!");
+    else if(bj_notice==5)bj_put(0,bj_accuracy<0?"LATE / PULLED LEFT":"EARLY / PUSHED RIGHT");
     else {bj_put(0,bj_lies[bj_terrain(bj_hole,(UBYTE)bj_target_x,(UBYTE)bj_target_y)]);bj_put(5," +/-");bj_num(9,bj_spread*3,2);bj_put(11,"Y");bj_put(14,"W:");bj_put(16,bj_wind_x<0?"<":bj_wind_x>0?">":"-");bj_put(17,bj_wind_y<0?"^":"V");bj_num(18,bj_wind_speed(),1);}
     bj_text(17,bj_line,0);
 }
@@ -56,6 +56,7 @@ void bj_shot_meter(void) BANKED {
     target=(UWORD)(bj_mode==BJ_POWER?bj_target_power:10)*127/800;
     if(target>15)target=15;
     for(i=0;i<16;i++) {tiles[i]=109;attrs[i]=11;}
+    if(bj_mode!=BJ_POWER) {attrs[0]=10;attrs[1]=10;attrs[2]=10;}
     tiles[target]=111;attrs[target]=10;tiles[pos]=110;attrs[pos]=15;
     mask=128>>(pixel&7);
     for(i=0;i<16;i++)cursor[i]=~mask;
@@ -68,6 +69,7 @@ void bj_shot_meter(void) BANKED {
     if(bj_meter_text_tick++&3)return;
     bj_blank();bj_put(0,"PWR ");bj_num(4,bj_mode==BJ_POWER?meter:bj_power,3);
     if(bj_mode==BJ_POWER) {bj_put(9,"TARGET ");bj_num(16,bj_target_power,3);}
+    else if(bj_mode==BJ_SWING) {bj_put(9,bj_accuracy>=-3 && bj_accuracy<=3?"PURE!":bj_accuracy<0?"LATE / HOOK":"EARLY/SLICE");}
     else {bj_put(9,"HIT DIAMOND");}
     bj_text(16,bj_line,1);
 }
