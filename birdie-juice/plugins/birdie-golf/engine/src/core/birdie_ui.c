@@ -32,6 +32,13 @@ void bj_draw_hud(void) BANKED {
     INT16 dx=(bj_x>>4)-bj_course.cup_x,dy=(bj_y>>4)-bj_course.cup_y;
     UWORD yards;
     UBYTE lie=bj_terrain(bj_hole,(UBYTE)(bj_x>>4),(UBYTE)(bj_y>>4));
+    if(bj_mode==BJ_AIM) {
+        if(bj_club==4 && (!bj_view_active || bj_view_zoom!=2)) {
+            INT16 cx=((bj_x>>4)+bj_course.cup_x)/2,cy=((bj_y>>4)+bj_course.cup_y)/2;
+            if(dx>30 || dx< -30 || dy>30 || dy< -30) {cx=bj_x>>4;cy=bj_y>>4;}
+            bj_view_open(2,cx,cy+8);
+        } else if(bj_club!=4 && bj_view_active)bj_view_close();
+    }
     bj_predict();
     if(dx<0)dx=-dx;if(dy<0)dy=-dy;
     yards=((dx>dy)?dx+dy*3/8:dy+dx*3/8)*3;
@@ -46,6 +53,31 @@ void bj_draw_hud(void) BANKED {
     else {bj_put(0,bj_lies[bj_terrain(bj_hole,(UBYTE)bj_target_x,(UBYTE)bj_target_y)]);bj_put(5," +/-");bj_num(9,bj_spread*3,2);bj_put(11,"Y");bj_put(14,"W:");bj_put(16,bj_wind_x<0?"<":bj_wind_x>0?">":"-");bj_put(17,bj_wind_y<0?"^":"V");bj_num(18,bj_wind_speed(),1);}
     bj_text(17,bj_line,bj_view_active);
     if(bj_view_active) {bj_text(14,bj_z?"     BALL IN FLIGHT":"     BOUNCE / ROLL",1);bj_text(15,"",1);}
+    if(bj_club==4 && bj_view_active)bj_putt_hud();
+    bj_view_busy=0;
+}
+static UWORD putt_feet(void) {
+    INT32 x=bj_x-((INT16)bj_course.cup_x<<4),y=bj_y-((INT16)bj_course.cup_y<<4);
+    UINT32 value=x*x+y*y,result=0,bit=1UL<<30;
+    while(bit>value)bit>>=2;
+    while(bit) {if(value>=result+bit) {value-=result+bit;result=(result>>1)+bit;}else result>>=1;bit>>=2;}
+    return (result*9+8)/16;
+}
+void bj_putt_hud(void) BANKED {
+    INT16 dx=(bj_course.cup_x-(bj_x>>4)),dy=(bj_course.cup_y-(bj_y>>4));
+    INT16 rise=-(dx*bj_course.slope_x+dy*bj_course.slope_y);
+    UWORD feet;
+    if(dx<0)dx=-dx;if(dy<0)dy=-dy;
+    feet=putt_feet();
+    bj_blank();bj_put(0,"TO CUP ");bj_num(7,feet,3);bj_put(10,"FT");bj_put(13,bj_putt_long?"LONG":"SHORT");bj_text(0,bj_line,1);
+    bj_blank();bj_put(0,rise>0?"UPHILL ":rise<0?"DOWNHILL ":"LEVEL ");
+    if(rise<0)rise=-rise;bj_num(9,rise,2);bj_put(11,"IN");bj_put(14,"FALL");bj_put(18,bj_course.slope_x<0?"<":">");bj_put(19,bj_course.slope_y<0?"^":"V");bj_text(1,bj_line,1);
+    bj_text(14,bj_notice==7?"     IN THE CUP!":bj_notice==6?"   LIP OUT! TOO FIRM":bj_mode==BJ_FLIGHT?"    WATCH THE BREAK":"LEFT/RIGHT FINE AIM",1);
+    if(bj_mode==BJ_AIM) {
+        bj_text(15," UP/DOWN 1% POWER",1);
+        bj_blank();bj_put(0,"PACE ");bj_num(5,(UWORD)(bj_putt_long?28:12)*bj_power*9/100,3);bj_put(8,"FT ");bj_num(11,bj_power,3);bj_put(14,"% FLAT");bj_text(16,bj_line,1);
+        bj_text(17,"A PUTT SELECT RANGE",1);
+    }
 }
 void bj_shot_meter(void) BANKED {
     UBYTE i,pos,pixel,target,mask,tiles[16],attrs[16],cursor[16];
@@ -77,6 +109,10 @@ void bj_shot_meter(void) BANKED {
 void bj_shot_open(void) BANKED {
     UBYTE row,lie=bj_terrain(bj_hole,(UBYTE)(bj_x>>4),(UBYTE)(bj_y>>4));
     bj_target_power=bj_power;
+    if(bj_club==4) {
+        bj_meter_last_mode=255;bj_meter_text_tick=0;
+        bj_putt_hud();bj_shot_meter();return;
+    }
     bj_meter_last_mode=255;bj_meter_text_tick=0;
     for(row=0;row<18;row++)bj_text(row,"",1);
     bj_blank();bj_put(0,"HOLE ");bj_num(5,bj_hole+1,1);bj_put(8,"PAR ");bj_num(12,bj_course.par,1);bj_put(14,"S:");bj_num(16,bj_strokes+1,2);bj_text(0,bj_line,1);

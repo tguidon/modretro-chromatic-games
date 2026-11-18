@@ -50,12 +50,12 @@ static void bj_auto_aim(void) {
         dot=(INT32)dx*bj_cos[i]+(INT32)dy*bj_sin[i];
         if(dot>best_dot) {best_dot=dot;best=i;}
     }
-    bj_angle=best;
+    bj_angle=best;bj_fine=0;
 }
 static void bj_place_actors(UBYTE height) {
     INT16 mx,my;
     UBYTE i;
-    if(bj_mode!=BJ_AIM && bj_mode!=BJ_FLIGHT) {
+    if(bj_mode!=BJ_AIM && bj_mode!=BJ_FLIGHT && !(bj_club==4 && bj_view_active && bj_mode>=BJ_POWER)) {
         SET_FLAG(PLAYER.flags,ACTOR_FLAG_HIDDEN);
         SET_FLAG(actors[1].flags,ACTOR_FLAG_HIDDEN);
         SET_FLAG(actors[2].flags,ACTOR_FLAG_HIDDEN);
@@ -64,14 +64,15 @@ static void bj_place_actors(UBYTE height) {
         return;
     }
     actors[3].pos.x=(bj_course.cup_x-8)*32;actors[3].pos.y=(bj_course.cup_y-3)*32;
+    actor_set_frame_offset(&PLAYER,bj_landing && bj_result==BJ_SUNK?(bj_landing>16?0:bj_landing>8?1:2):0);
     SET_FLAG(actors[4].flags,ACTOR_FLAG_HIDDEN);
     CLR_FLAG(actors[2].flags,ACTOR_FLAG_HIDDEN);
     CLR_FLAG(actors[3].flags,ACTOR_FLAG_HIDDEN);
-    actor_set_frame_offset(&actors[3],(game_time>>4)&1);
+    actor_set_frame_offset(&actors[3],bj_club==4 && bj_view_active?2:(game_time>>4)&1);
     PLAYER.pos.x=(UWORD)((bj_x-128)*2);
     PLAYER.pos.y=(UWORD)((bj_y-((INT16)height<<4))*2);
     CLR_FLAG(PLAYER.flags,ACTOR_FLAG_HIDDEN|ACTOR_FLAG_COLLISION);
-    if(bj_mode==BJ_AIM) {
+    if(bj_mode==BJ_AIM || (bj_club==4 && bj_mode>=BJ_POWER)) {
         mx=bj_target_x;my=bj_target_y;
         actor_set_frame_offset(&actors[1],bj_spread>4?1:0);
         if(mx>=8 && mx<152 && my>=20 && my<125) {
@@ -99,6 +100,14 @@ static void bj_place_actors(UBYTE height) {
             CLR_FLAG(actors[2].flags,ACTOR_FLAG_HIDDEN);
         }
     } else actor_set_frame_offset(&actors[2],0);
+    if(bj_club==4 && bj_view_active && bj_mode!=BJ_FLIGHT) {
+        actors[2].pos.x=(((bj_x>>4)+(bj_target_x-(bj_x>>4))/3)-8)*32;
+        actors[2].pos.y=((bj_y>>4)+(bj_target_y-(bj_y>>4))/3)*32;
+        actor_set_frame_offset(&actors[2],4);
+        actors[4].pos.x=(((bj_x>>4)+(bj_target_x-(bj_x>>4))*2/3)-8)*32;
+        actors[4].pos.y=((bj_y>>4)+(bj_target_y-(bj_y>>4))*2/3)*32;
+        CLR_FLAG(actors[4].flags,ACTOR_FLAG_HIDDEN);
+    }
     if(bj_view_active) {
         for(i=0;i<5;i++) {
             mx=((INT16)(actors[i].pos.x>>5)+8-bj_view_x)*bj_view_zoom-8;
@@ -133,7 +142,11 @@ static void bj_settle(void) {
     bj_view_close();bj_mode=BJ_AIM;bj_auto_aim();
     bj_wind_x=bj_course.wind_x;bj_wind_y=bj_course.wind_y;
     lie=bj_terrain(bj_hole,(UBYTE)(bj_x>>4),(UBYTE)(bj_y>>4));
-    if(lie==BJ_GREEN || bj_distance_to_cup()<=16) bj_club=4;
+    if(lie==BJ_GREEN || bj_distance_to_cup()<=16) {
+        bj_club=4;bj_putt_long=bj_distance_to_cup()>12;
+        bj_power=(UWORD)bj_distance_to_cup()*80/(bj_putt_long?28:12);
+        if(bj_power<5)bj_power=5;if(bj_power>100)bj_power=100;
+    }
     bj_draw_hud();
 }
 static void bj_swing(void) {
@@ -141,12 +154,12 @@ static void bj_swing(void) {
     bj_physics_start();
     bj_mode=BJ_FLIGHT;bj_strokes++;bj_total++;
     bj_notice=(bj_accuracy>=-3 && bj_accuracy<=3)?4:5;
-    bj_close_panel();bj_view_open(1,bj_x>>4,bj_y>>4);bj_sound(bj_notice==4?220:100);bj_draw_hud();
+    if(bj_club!=4) {bj_close_panel();bj_view_open(1,bj_x>>4,bj_y>>4);}bj_sound(bj_notice==4?220:100);bj_draw_hud();
 }
 static void bj_lock_accuracy(void) {
     bj_accuracy=bj_meter-10;
     bj_mode=BJ_SWING;bj_swing_tick=0;
-    bj_shot_pose(1);bj_shot_meter();
+    if(bj_club!=4)bj_shot_pose(1);bj_shot_meter();
 }
 static void bj_next(void) {
     // The aim actor owns an ordinary editable GB Studio scene-transition event.
@@ -168,7 +181,7 @@ void golf_init(void) BANKED {
     if(!bj_hole) {memset(bj_scores,0,sizeof(bj_scores));bj_total=0;}
     bj_read_hole(bj_hole,&bj_course);
     bj_x=(INT16)bj_course.tee_x<<4;bj_y=(INT16)bj_course.tee_y<<4;
-    bj_strokes=0;bj_club=0;bj_power=100;bj_notice=0;bj_repeat=0;bj_wait=16;bj_hud_tick=0;
+    bj_strokes=0;bj_club=0;bj_power=100;bj_fine=0;bj_putt_long=0;bj_notice=0;bj_repeat=0;bj_wait=16;bj_hud_tick=0;
     bj_mode=bj_hole?BJ_AIM:BJ_TITLE;
     bj_meter=0;bj_accuracy=0;bj_z=0;bj_wind_x=bj_course.wind_x;bj_wind_y=bj_course.wind_y;
     camera_offset_x=0;camera_offset_y=0;camera_deadzone_x=0;camera_deadzone_y=0;
@@ -183,15 +196,16 @@ void golf_update(void) BANKED {
     UBYTE pressed=joy_pressed, height=0;
     if(bj_wait && bj_wait!=255)bj_wait--;
     if(bj_fx)bj_fx--;
+    if(bj_view_active && bj_view_zoom==2 && !(game_time&15))bj_view_grid();
     if(bj_hud_tick<2) {bj_hud_tick++;bj_draw_hud();}
     if(bj_mode==BJ_TITLE) {
         if(!bj_wait && (pressed&J_A)) {bj_mode=BJ_AIM;bj_close_panel();bj_sound(180);bj_draw_hud();}
         else if(pressed&J_START) {bj_help_return=BJ_TITLE;bj_mode=BJ_HELP;bj_draw_panel();}
     } else if(bj_mode==BJ_HELP) {
-        if(pressed&(J_A|J_B|J_START)) {bj_mode=bj_help_return;if(bj_mode==BJ_AIM)bj_close_panel();else bj_draw_panel();}
+        if(pressed&(J_A|J_B|J_START)) {bj_mode=bj_help_return;if(bj_mode==BJ_AIM) {bj_close_panel();bj_draw_hud();}else bj_draw_panel();}
     } else if(bj_mode==BJ_CARD) {
         if(!bj_wait && (pressed&J_A) && bj_hole==8 && bj_scores[8])bj_next();
-        else if(pressed&(J_B|J_START|J_A)) {bj_mode=bj_help_return;if(bj_mode==BJ_AIM)bj_close_panel();else bj_draw_panel();}
+        else if(pressed&(J_B|J_START|J_A)) {bj_mode=bj_help_return;if(bj_mode==BJ_AIM) {bj_close_panel();bj_draw_hud();}else bj_draw_panel();}
     } else if(bj_mode==BJ_HOLED) {
         if(!bj_wait && (pressed&J_A))bj_next();
         else if(pressed&J_START) {bj_help_return=BJ_HOLED;bj_mode=BJ_CARD;bj_draw_panel();}
@@ -199,13 +213,13 @@ void golf_update(void) BANKED {
         if(pressed&J_B) {bj_mode=BJ_AIM;bj_close_panel();bj_draw_hud();}
         else if(pressed&J_A) {
             bj_power=bj_meter<5?5:bj_meter;
-            bj_mode=BJ_ACCURACY;bj_meter=100;bj_shot_pose(1);bj_shot_meter();bj_sound(150);
+            bj_mode=BJ_ACCURACY;bj_meter=100;if(bj_club!=4)bj_shot_pose(1);bj_shot_meter();bj_sound(150);
         } else {
-            if(bj_meter_back) {bj_meter-=2;if(bj_meter<=0)bj_meter_back=0;}
-            else {bj_meter+=2;if(bj_meter>=100)bj_meter_back=1;}
-            if(bj_meter==24)bj_shot_pose(4);
-            if(bj_meter==50)bj_shot_pose(5);
-            if(bj_meter==76)bj_shot_pose(1);
+            if(bj_meter_back) {bj_meter-=bj_club==4?1:2;if(bj_meter<=0)bj_meter_back=0;}
+            else {bj_meter+=bj_club==4?1:2;if(bj_meter>=100)bj_meter_back=1;}
+            if(bj_club!=4 && bj_meter==24)bj_shot_pose(4);
+            if(bj_club!=4 && bj_meter==50)bj_shot_pose(5);
+            if(bj_club!=4 && bj_meter==76)bj_shot_pose(1);
             bj_shot_meter();
         }
     } else if(bj_mode==BJ_ACCURACY) {
@@ -213,9 +227,9 @@ void golf_update(void) BANKED {
         else {bj_meter-=2;bj_shot_meter();}
     } else if(bj_mode==BJ_SWING) {
         bj_swing_tick++;
-        if(bj_swing_tick==4)bj_shot_pose(4);
-        if(bj_swing_tick==8) {bj_shot_pose(2);bj_sound(bj_accuracy>=-3 && bj_accuracy<=3?235:90);}
-        if(bj_swing_tick==16)bj_shot_pose(3);
+        if(bj_club!=4 && bj_swing_tick==4)bj_shot_pose(4);
+        if(bj_swing_tick==8) {if(bj_club!=4)bj_shot_pose(2);bj_sound(bj_accuracy>=-3 && bj_accuracy<=3?235:90);}
+        if(bj_club!=4 && bj_swing_tick==16)bj_shot_pose(3);
         if(bj_swing_tick>=30)bj_swing();
     } else if(bj_mode==BJ_FLIGHT) {
         UBYTE bounce=bj_bounces,result;
@@ -227,9 +241,13 @@ void golf_update(void) BANKED {
                 bj_fx_kind=result==BJ_SPLASH?3:bj_terrain(bj_hole,bj_fx_x,bj_fx_y)==BJ_SAND?2:1;
                 NR41_REG=0x10;NR42_REG=0x81;NR43_REG=bj_fx_kind==3?0x35:0x24;NR44_REG=0xC0;
             }
-            if(result==BJ_SPLASH) {bj_result=result;bj_landing=12;result=BJ_MOVING;}
+            if(result==BJ_SPLASH || result==BJ_SUNK) {
+                bj_result=result;bj_landing=result==BJ_SUNK?24:12;result=BJ_MOVING;
+                if(bj_result==BJ_SUNK) {bj_x=(INT16)bj_course.cup_x<<4;bj_y=(INT16)bj_course.cup_y<<4;bj_z=0;bj_notice=7;bj_sound(240);if(bj_club==4)bj_putt_hud();}
+            }
         }
-        bj_view_follow();
+        if(bj_club!=4)bj_view_follow();
+        if(bj_lip)bj_putt_hud();
         if(bj_bounces!=bounce)bj_draw_hud();
         height=(UBYTE)(bj_z>>4);
         if(result==BJ_SUNK) {bj_finish_hole();height=0;}
@@ -240,7 +258,10 @@ void golf_update(void) BANKED {
     } else {
         if(pressed&J_START) {bj_help_return=BJ_AIM;bj_mode=BJ_CARD;bj_draw_panel();}
         else if(pressed&J_B) {bj_notice=0;bj_club=(bj_club+1)%5;bj_sound(130);bj_draw_hud();}
-        else if(pressed&J_SELECT) {bj_notice=0;bj_club=(bj_club+4)%5;bj_sound(130);bj_draw_hud();}
+        else if(pressed&J_SELECT) {
+            bj_notice=0;if(bj_club==4)bj_putt_long=!bj_putt_long;else bj_club=(bj_club+4)%5;
+            bj_sound(130);bj_draw_hud();
+        }
         else if(pressed&J_A) {
             bj_mode=BJ_POWER;bj_meter=0;bj_meter_back=0;bj_accuracy=0;
             bj_shot_open();
@@ -249,11 +270,15 @@ void golf_update(void) BANKED {
             if(!(joy&J_RIGHT) && !(joy&J_LEFT) && !(joy&J_UP) && !(joy&J_DOWN))bj_repeat=0;
             if(pressed&(J_RIGHT|J_LEFT|J_UP|J_DOWN))bj_repeat=0;
             if(!bj_repeat) {
-                if(joy&J_RIGHT)bj_angle=(bj_angle+1)&63;
-                else if(joy&J_LEFT)bj_angle=(bj_angle+63)&63;
+                if(joy&(J_RIGHT|J_LEFT)) {
+                    if(bj_club==4) {
+                        UBYTE heading=(bj_angle<<2)+bj_fine+(joy&J_RIGHT?1:255);
+                        bj_angle=heading>>2;bj_fine=heading&3;
+                    } else bj_angle=(bj_angle+(joy&J_RIGHT?1:63))&63;
+                }
                 // Timed swings leave powers between five-percent steps.
-                if((joy&J_UP) && bj_power<100)bj_power=bj_power>95?100:bj_power+5;
-                else if((joy&J_DOWN) && bj_power>5)bj_power=bj_power<10?5:bj_power-5;
+                if((joy&J_UP) && bj_power<100)bj_power=bj_club==4?bj_power+1:bj_power>95?100:bj_power+5;
+                else if((joy&J_DOWN) && bj_power>5)bj_power=bj_club==4?bj_power-1:bj_power<10?5:bj_power-5;
                 if(joy&(J_RIGHT|J_LEFT|J_UP|J_DOWN)) {bj_notice=0;bj_repeat=6;bj_draw_hud();}
             } else bj_repeat--;
         }

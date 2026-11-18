@@ -136,6 +136,37 @@
                   "priority": false
                 }
               ]
+            },
+            {
+              "id": "d0bbae26-ef1b-5724-a078-74472c7cb6c2",
+              "tiles": [
+                {
+                  "id": "8fe0e058-f764-53f4-a22a-2fba76a87332",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 64,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "af6f25de-e56e-5028-987b-3d7df1014ea9",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 72,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
             }
           ]
         },
@@ -216,6 +247,6 @@
   "boundsHeight": 4,
   "animSpeed": 255,
   "filename": "golfer.png",
-  "width": 64,
+  "width": 80,
   "height": 16
 }

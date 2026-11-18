@@ -43,6 +43,68 @@
                   "priority": false
                 }
               ]
+            },
+            {
+              "id": "5966335e-a60b-5117-973b-872e95ea5cc2",
+              "tiles": [
+                {
+                  "id": "1bc8a36e-e744-5c68-a3e8-cd382f243375",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 16,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "68e518e5-6440-5cfe-b86a-886df8e97ada",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 24,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
+            },
+            {
+              "id": "26098d82-c4d7-5b43-8da4-86472909a592",
+              "tiles": [
+                {
+                  "id": "37d13d67-a011-5212-94f2-98d1ccee80a5",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 32,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "140c319f-3b88-56e3-aeff-7cc8da3a5ef5",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 40,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
             }
           ]
         },
@@ -123,6 +185,6 @@
   "boundsHeight": 4,
   "animSpeed": 255,
   "filename": "ball.png",
-  "width": 16,
+  "width": 48,
   "height": 16
 }

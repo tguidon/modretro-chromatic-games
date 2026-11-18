@@ -61,13 +61,16 @@ for i,h in enumerate(course['holes']):
     terrain.save(ROOT/f'course/art/hole_{n:02}_terrain.png')
     values=[terrain.getpixel((x,y)) for y in range(16,128,2) for x in range(0,160,2)]
     packed=[values[j]|(values[j+1]<<4) for j in range(0,len(values),2)]
-    (engine/f'src/core/birdie_terrain_{n:02}.c').write_text('#pragma bank 255\n#include "states/golf.h"\nstatic const UBYTE map[]={'+','.join(map(str,packed))+'};\nUBYTE bj_terrain_'+str(n)+'(UWORD cell) BANKED {UBYTE value=map[cell>>1];return (cell&1)?value>>4:value&15;}\n')
+    (engine/f'src/core/birdie_terrain_{n:02}.c').write_text('#pragma bank 255\n#include "states/golf.h"\nstatic const UBYTE map[]={'+','.join(map(str,packed))+'};\nUBYTE bj_terrain_'+str(n)+'(UWORD cell) BANKED {UBYTE value=map[cell>>1];return (cell&1)?value>>4:value&15;}\nvoid bj_row_'+str(n)+'(UBYTE row,UBYTE *dest) BANKED {UBYTE i;UWORD offset=(UWORD)row*40;for(i=0;i<40;i++)dest[i]=map[offset+i];}\n')
     wind=h.get('wind',[(n%3)-1,-2+(n%3)])
     slope=h.get('slope',[1 if n%2 else -1,1])
     hole_c.append('{'+f'{h["par"]},{tx*8+4},{ty*8+4},{hx*8+4},{hy*8+4},"{h["name"].upper()}",'+','.join(map(str,wind+slope))+'}')
-terrain_api=''.join(f'UBYTE bj_terrain_{n}(UWORD cell) BANKED;\n' for n in range(1,10))
+terrain_api=''.join(f'UBYTE bj_terrain_{n}(UWORD cell) BANKED;\nvoid bj_row_{n}(UBYTE row,UBYTE *dest) BANKED;\n' for n in range(1,10))
 terrain_switch=''.join(f'case {n-1}:return bj_terrain_{n}(cell);' for n in range(1,10))
 (engine/'src/core/birdie_course.c').write_text('#pragma bank 255\n#include <string.h>\n#include "states/golf.h"\n'+terrain_api+'static const bj_hole_t bj_holes[9]={'+','.join(hole_c)+'};\nvoid bj_read_hole(UBYTE hole,bj_hole_t *dest) BANKED {memcpy(dest,&bj_holes[hole],sizeof(bj_hole_t));}\nUBYTE bj_terrain(UBYTE hole,UBYTE x,UBYTE y) BANKED {UWORD cell;if(x>=160||y<16||y>=128)return BJ_WATER;cell=((UWORD)((y-16)>>1))*80+(x>>1);switch(hole){'+terrain_switch+'}return BJ_WATER;}\n')
+
+with (engine/'src/core/birdie_course.c').open('a') as file:
+    file.write('void bj_terrain_row(UBYTE hole,INT16 y,UBYTE *dest) BANKED {UBYTE row;if(y<16||y>=128){memset(dest,0,40);return;}row=(y-16)>>1;switch(hole){'+''.join(f'case {n-1}:bj_row_{n}(row,dest);break;' for n in range(1,10))+'}}\n')
 
 # Transparent green is GB Studio's native sprite key. The other colors map to sprite indices 1..3.
 for kind in ['ball','aim','golfer','flag','shadow']:
@@ -83,6 +86,13 @@ for kind in ['ball','aim','golfer','flag','shadow']:
     else:
         p.ellipse((4,12,12,14),fill='#000000');p.rectangle((6,8,10,11),fill='#aaaaaa');p.rectangle((6,4,10,7),fill='#ffffff');p.rectangle((5,3,11,4),fill='#ffffff');p.line((7,12,6,14),fill='#ffffff');p.line((10,12,11,14),fill='#ffffff');p.line((11,9,14,12),fill='#000000');p.line((13,12,15,12),fill='#ffffff')
     frames=[im]
+    if kind=='flag':
+        cup=Image.new('RGB',(16,16),'#00ff00');q=ImageDraw.Draw(cup)
+        q.ellipse((5,7,11,11),fill='#ffffff');q.ellipse((6,8,10,10),fill='#000000');frames.append(cup)
+    if kind=='ball':
+        for size in (2,1):
+            dot=Image.new('RGB',(16,16),'#00ff00');q=ImageDraw.Draw(dot)
+            q.rectangle((8,8,8+size-1,8+size-1),fill='#ffffff');frames.append(dot)
     if kind=='golfer':
         for style in range(3):
             effect=Image.new('RGB',(16,16),'#00ff00');q=ImageDraw.Draw(effect)
@@ -90,6 +100,8 @@ for kind in ['ball','aim','golfer','flag','shadow']:
             for x,y in [(2,6),(5,3),(10,4),(13,7),(4,10),(11,11)]:
                 q.line((x,y,x+(1 if x>8 else -1),y-2-style),fill=color)
             q.arc((3,7,13,13),0,180,fill='#000000');frames.append(effect)
+        guide=Image.new('RGB',(16,16),'#00ff00');q=ImageDraw.Draw(guide)
+        q.rectangle((7,8,8,9),fill='#ffffff');frames.append(guide)
     if kind=='aim':
         frames=[]
         for radius in (4,7):
@@ -100,7 +112,7 @@ for kind in ['ball','aim','golfer','flag','shadow']:
     if kind=='flag':
         alt=im.copy();q=ImageDraw.Draw(alt)
         q.rectangle((9,0,15,7),fill='#00ff00');q.polygon([(9,1),(14,1),(12,4),(9,5)],fill='#aaaaaa')
-        frames.append(alt)
+        frames.insert(1,alt)
     sheet=Image.new('RGB',(16*len(frames),16),'#00ff00')
     for f,frame in enumerate(frames):sheet.paste(frame,(f*16,0))
     name=f'{kind}.png';sheet.save(ROOT/'assets/sprites'/name)

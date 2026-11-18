@@ -9,17 +9,18 @@ Choose a driver, 5 wood, 7 iron, wedge, or putter.
 Plan your aim and target power on the map, then time a three-press swing:
 press A to start the meter, A to set power, and A again as the returning cursor
 crosses the green diamond. Early and late contact changes direction and distance.
-The crosshair estimates calm-air carry; wind, bounce, and rollout change the result.
+The carry ring accounts for wind and indicates estimated spread from the current lie.
+The HUD labels the predicted landing surface; bounce and rollout can carry the ball beyond it.
 
 ## Controls
 
 | Control | Action |
 | --- | --- |
-| Left / Right | Rotate the aim |
-| Up / Down | Set the target power shown by the marker |
+| Left / Right | Rotate aim; four-times-finer aiming with the putter |
+| Up / Down | Set target power: 5% steps for clubs, 1% for putting |
 | A | Start meter → set power → time contact; also start/advance a round |
 | B | Select the next club or close a menu |
-| Select | Select the previous club |
+| Select | Previous club; with putter selected, toggle short/long range |
 | Start | Open the scorecard, or open help from the title |
 
 During the rising power meter, B cancels without taking a stroke. Once power is
@@ -145,3 +146,24 @@ hole geometry and ball trajectory.
 The course artwork, sprites, golf rules, and HUD font were created for Birdie Juice.
 The baseline dialogue font and frame come from the ModRetro original starter.
 The included `LICENSE` preserves the native project's upstream notice.
+
+## Putting close-up
+
+Selecting the putter opens a 2× terrain view with a visible cup and a dotted
+straight-line aim guide. Flowing chevrons show the downhill direction. The HUD
+shows distance in feet and the modeled elevation change to the cup. Left/right
+has 256 headings rather than the other clubs' 64; up/down changes power by 1%.
+Select switches between short (108 feet nominal) and long (252 feet nominal)
+ranges. PACE is flat-green distance, not a promise of where a sloped putt stops.
+
+The putting power meter moves more slowly and its scale is linear in nominal
+travel distance. Use the same A / A / A rhythm for power and contact. The green
+stays visible while you putt. Downhill putts run farther, uphill putts stop sooner,
+and cross slopes bend the roll. Slow balls drop into the cup; firm balls can run
+past or glance off its rim. A brief drop animation and cup sound precede scoring.
+B cancels during the power meter without costing a stroke.
+
+Run `tools/putting_playtest.py` with the same Python and `--rom`, `--symbols`,
+and `--output` options as the main regression for focused putting checks. It
+reaches the green through actual shots, checks controls and object visibility,
+and compares uphill, downhill, cross-slope, and firm-through-cup putts.

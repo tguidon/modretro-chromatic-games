@@ -74,6 +74,37 @@
                   "priority": false
                 }
               ]
+            },
+            {
+              "id": "d193a388-ce73-5be7-a1f6-e6283a5f4299",
+              "tiles": [
+                {
+                  "id": "e4147748-b432-5591-adb1-b5f6807fbaca",
+                  "x": 0,
+                  "y": 0,
+                  "sliceX": 32,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                },
+                {
+                  "id": "b4c54717-8666-5789-a454-f4dfe8bdd7e4",
+                  "x": 8,
+                  "y": 0,
+                  "sliceX": 40,
+                  "sliceY": 0,
+                  "flipX": false,
+                  "flipY": false,
+                  "palette": 0,
+                  "paletteIndex": 0,
+                  "objPalette": "OBP0",
+                  "priority": false
+                }
+              ]
             }
           ]
         },
@@ -154,6 +185,6 @@
   "boundsHeight": 4,
   "animSpeed": 255,
   "filename": "flag.png",
-  "width": 32,
+  "width": 48,
   "height": 16
 }

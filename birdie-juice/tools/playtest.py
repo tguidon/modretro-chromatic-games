@@ -42,8 +42,11 @@ class Game:
         return v-65536 if v>32767 else v
     def state(self):return {**{n:self.byte(n) for n in ['hole','mode','club','power','angle','strokes','notice','bounces','roll_frames']},'x':self.word('x')/16,'y':self.word('y')/16,'z':self.word('z')/16,'accuracy':self.word('accuracy'),'total':self.word('total')}
     def press(self,b):
+        if '_bj_view_busy' in symbols:self.until(lambda:not self.byte('view_busy'))
         self.actions.append({'frame':self.frames,'button':b,'heldFrames':3})
         self.p.button_press(b);self.tick(3);self.p.button_release(b);self.tick(3)
+        if '_bj_view_busy' in symbols:
+            self.until(lambda:not self.byte('view_busy'));self.tick(3)
     def until(self,fn,limit=500):
         for _ in range(limit):
             if fn():return
@@ -54,8 +57,11 @@ class Game:
     def aim(self,club,angle):
         assert self.byte('mode')==0,self.state()
         for _ in range((club-self.byte('club'))%5):self.press('b')
-        delta=(angle-self.byte('angle'))%64
-        for _ in range(min(delta,64-delta)):self.press('right' if delta<=32 else 'left')
+        circle=256 if club==4 else 64
+        current=self.byte('angle')*4+self.byte('fine') if club==4 else self.byte('angle')
+        target=angle*4 if club==4 else angle
+        delta=(target-current)%circle
+        for _ in range(min(delta,circle-delta)):self.press('right' if delta<=circle//2 else 'left')
         assert (self.byte('club'),self.byte('angle'))==(club,angle),self.state()
     def swing(self,power=100,error=0,capture=False):
         self.press('a');assert self.byte('mode')==6,self.state()
@@ -90,8 +96,11 @@ def plan(s,h):
     lie=terrain(h,x,y);distance=math.hypot(cx-x,cy-y)
     if lie=='g' and distance<23:
         # Aim a little uphill. The visible green always falls toward the lower edge.
-        cx-=1.3 if h['hole']%2 else -1.3;cy-=1.3
-        distance=math.hypot(cx-x,cy-y);club=4;power=round(math.sqrt(distance/22)*100)
+        sx,sy=h['slope'];ux=(cx-x)/max(distance,.1);uy=(cy-y)/max(distance,.1)
+        along=sx*ux+sy*uy
+        cx-=(sx-along*ux)*distance*.18;cy-=(sy-along*uy)*distance*.18
+        club=4;span=28 if abs(h['cup'][0]*8+4-x)+abs(h['cup'][1]*8+4-y)>12 else 12
+        power=round(distance/span*100*(10-5*along)/10)
     else:
         # Approximate total carry + roll, refined by the next observed lie.
         ranges=[64,54,39,26]
