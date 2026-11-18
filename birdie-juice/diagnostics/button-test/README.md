@@ -34,7 +34,7 @@ The current source explicitly calls `set_default_palette()` on CGB hardware.
 Build it with `colorMode: "gbc-only"` to
 `build/button-comparison/01b-color-initialized.gb`. This corrected checkpoint
 passed all eight inputs over 264 emulator frames with black text on white.
-Physical confirmation is required before advancing to the later checkpoints.
+The user subsequently confirmed this corrected image worked on the Chromatic.
 
 Run `python3 diagnostics/button-test/make_comparisons.py` from the game folder
 to produce four corrected images in `build/button-comparison/`. The generator
@@ -52,7 +52,8 @@ The emitted manifest identifies each exact file and its changes:
 Header and global checksums are recomputed. The original four were inspected and tested
 in CGB-mode PyBoy for 264 frames each: boot 120, then each of eight buttons held
 12 frames followed by 6 neutral frames. Each reached ALL BUTTONS OK!.
-The corrected later variants require fresh emulator checks before installation.
+Each corrected later variant also passed the same 264-frame emulator sequence,
+flashed successfully, and received physical confirmation from the user.
 These variants do not execute banked golf code or exercise external RAM.
 They isolate installation properties, not runtime bank/RAM functionality.
 
@@ -60,3 +61,33 @@ Physical installation results, rather than emulator success, are needed to
 determine which change affects the writer. Stop the comparison sequence at the
 first failed install and retain its original operation status. Do not equate
 one failure with proof of a particular cause; intermittent writes remain possible.
+
+## First 8 KiB isolation
+
+All four corrected comparisons passed on the physical Chromatic. Checkpoint 4
+contains Birdie's exact last 120 KiB, so all remaining file differences are in
+offsets 0x0000–0x1FFF. This narrows the file comparison; it does not establish that
+those bytes caused the earlier verification failures. Intermittent writes remain
+possible. Do not change the production game on that inference alone.
+
+Run `python3 diagnostics/button-test/isolate_prefix.py` from the game folder.
+This pins both inputs by SHA-256 and prepares the next cumulative comparisons:
+
+5. `05-birdie-header.gb` copies Birdie's title/header fields into checkpoint 4.
+   Only 13 bytes change: 11 title bytes, the header checksum, and one global
+   checksum byte. The complete header at 0x100–0x14D matches Birdie; the valid
+   global checksum at 0x14E–0x14F depends on the remaining diagnostic content.
+6. `06-birdie-prefix-padding.gb` additionally copies Birdie's bytes into the
+   diagnostic's unused 0x10AB–0x1FFF padding. All test code is preserved. Only
+   3,750 differing byte positions then remain, entirely below 0x10AB.
+
+The generator asserts the allowed changed ranges and preserves the input ROMs.
+Inspect and emulator-test each exact generated ROM before installation; keep
+physical checkpoints between writes. The output manifest describes prepared
+images, not completed tests. Retain subsequent observations and operation results
+under `artifacts/button-comparison/`.
+
+The Birdie linker symbols place the earlier failing offset 0x232 inside
+`_script_cmds` (starting at 0x206), its script command table. That locates a failed
+readback byte; it does not indicate a runtime script error. Both original
+verification failures occurred during installation, before verified gameplay.
