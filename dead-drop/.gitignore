@@ -1,0 +1,10 @@
+# Generated builds, previews, recordings, and local gameplay state.
+/build/
+/artifacts/
+/captures/
+/save-states/
+
+# Local authoring caches and operating-system metadata.
+__pycache__/
+*.py[cod]
+.DS_Store
