@@ -1,4 +1,4 @@
-"""Prepare controlled flash comparisons from our hardware-tested button ROM.
+"""Prepare controlled flash comparisons from the palette-initialized color test.
 
 No cartridge operations. Preserve both input ROMs. The test code stays in bank 0.
 Every output has correct size declarations and recomputed Game Boy checksums.
@@ -10,9 +10,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'build/button-comparison'
 OUT.mkdir(parents=True, exist_ok=True)
-baseline = (ROOT / 'build/button-test.gb').read_bytes()
+baseline = (OUT / '01b-color-initialized.gb').read_bytes()
 birdie = (ROOT / 'build/birdie-juice.gbc').read_bytes()
-assert hashlib.sha256(baseline).hexdigest() == '37f8d75b1d8330c4fb6d8776f9a9fac2274ade878931063536b8ed42cea08e04'
+assert hashlib.sha256(baseline).hexdigest() == 'cc99667e756d6cdc552cee122c50f3cc16be27ae975b840e87edef5300da15ec'
 assert len(birdie) == 131072 and birdie[0x147:0x14A] == bytes([0x1E, 2, 3])
 assert baseline[0x2000:] == bytes([255]) * (len(baseline) - 0x2000)
 manifest = []
@@ -33,15 +33,15 @@ def emit(name, data, purpose):
 
 data = bytearray(baseline)
 data[0x143] = 0xC0
-emit('01-color-only.gb', data, 'Change only color flag (plus checksums) from working baseline')
+emit('01b-color-initialized.gb', data, 'Color-only baseline with explicit CGB palette initialization')
 data[0x147] = 0x1E
 data[0x149] = 3
-emit('02-mbc5-ram.gb', data, 'Add Birdie MBC5/rumble/battery and 32 KiB RAM declarations')
+emit('02b-mbc5-ram.gb', data, 'Add Birdie MBC5/rumble/battery and 32 KiB RAM declarations')
 data.extend(bytes([255]) * (len(birdie) - len(data)))
 data[0x148] = 2
-emit('03-128k.gb', data, 'Increase to Birdie ROM size with erased-byte padding')
+emit('03b-128k.gb', data, 'Increase to Birdie ROM size with erased-byte padding')
 data[0x2000:] = birdie[0x2000:]
-emit('04-128k-dense.gb', data, 'Replace unused padding with Birdie data; keep button-test code and header')
+emit('04b-128k-dense.gb', data, 'Replace unused padding with Birdie data; keep button-test code and header')
 
-(OUT / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+(OUT / 'manifest-initialized.json').write_text(json.dumps(manifest, indent=2) + '\n')
 print(json.dumps(manifest, indent=2))

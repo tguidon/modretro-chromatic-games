@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include <gbdk/console.h>
 #include <stdio.h>
 
@@ -13,6 +14,8 @@ void main(void) {
     UINT8 held, seen = 0, previous = 0, first = 1;
     UINT8 i, count;
 
+    // CGB mode does not use BGP for text colors; boot palettes may be all white.
+    if (_cpu == CGB_TYPE) set_default_palette();
     printf("       TEST");
     gotoxy(1, 2); printf("BUTTON   HELD SEEN");
     for (i = 0; i != 8; ++i) {

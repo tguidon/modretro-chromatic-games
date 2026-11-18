@@ -25,20 +25,34 @@ Standalone C builds are tested through the plugin's emulator; its GB Studio
 The original 32 KiB diagnostic successfully flashed and the user confirmed it
 worked on the physical Chromatic on November 18, 2026.
 
+The first color-flag-only comparison flashed successfully, but the user reported
+a white screen. The original test did not initialize CGB palettes. PyBoy showed
+red text from its startup palette, masking this dependency; a readable emulator
+screen alone did not establish correct hardware initialization.
+
+The current source explicitly calls `set_default_palette()` on CGB hardware.
+Build it with `colorMode: "gbc-only"` to
+`build/button-comparison/01b-color-initialized.gb`. This corrected checkpoint
+passed all eight inputs over 264 emulator frames with black text on white.
+Physical confirmation is required before advancing to the later checkpoints.
+
 Run `python3 diagnostics/button-test/make_comparisons.py` from the game folder
-to produce four controlled images in `build/button-comparison/`. The generator
-requires the exact hardware-tested baseline hash and leaves its input ROMs intact.
+to produce four corrected images in `build/button-comparison/`. The generator
+requires the exact corrected baseline hash and preserves the old comparison
+files and `manifest.json`; new files use the `b` suffix and
+`manifest-initialized.json`.
 The emitted manifest identifies each exact file and its changes:
 
-1. Change the working test's color flag to color-only.
+1. Establish a color-only baseline with explicit palette initialization.
 2. Add Birdie's MBC5+rumble+RAM+battery type and 32 KiB RAM declaration.
 3. Expand to 128 KiB using 0xFF padding and update the declared ROM size.
 4. Replace unused padding at 0x2000 onward with Birdie's bytes, increasing
    programming workload while preserving the complete button-test program.
 
-Header and global checksums are recomputed. All four were inspected and tested
+Header and global checksums are recomputed. The original four were inspected and tested
 in CGB-mode PyBoy for 264 frames each: boot 120, then each of eight buttons held
 12 frames followed by 6 neutral frames. Each reached ALL BUTTONS OK!.
+The corrected later variants require fresh emulator checks before installation.
 These variants do not execute banked golf code or exercise external RAM.
 They isolate installation properties, not runtime bank/RAM functionality.
 
